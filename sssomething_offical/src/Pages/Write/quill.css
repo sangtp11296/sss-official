@@ -1,0 +1,29 @@
+.quill{
+    border: .5px solid gray;
+    border-radius: 8px;
+    background-color: white;
+    /* min-height: 400px; */
+    height: auto;
+}
+.ql-toolbar.ql-snow{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Poppins';
+}
+.ql-toolbar.ql-snow span{
+    color: var(--gray-dark);
+    font-weight: 300;
+}
+.ql-container.ql-snow {
+    border:none;
+}
+.ql-container {
+    font-family: 'Poppins';
+    font-size: 13px;
+    font-weight: 100;
+}
+.ql-editor{
+    min-height: 400px;
+    overflow: auto;
+    resize: vertical;
+}
