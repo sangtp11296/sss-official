@@ -13,7 +13,7 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 function App() {
   return (
     <Router>
-      <ScrollToTop/>
+      {/* <ScrollToTop/> */}
       <Header/>
       <Switch>
         <Route path="/" exact={true}>
