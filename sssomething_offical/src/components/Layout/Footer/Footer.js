@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
-import {ReactComponent as Logo} from '../../../images/brand/sssomething-logo-2.svg'
+import {ReactComponent as Logo} from '../../../images/brand/sss-logo-1080.svg'
 function Footer(props) {
     return (
         <footer className={styles.footerWeb}>

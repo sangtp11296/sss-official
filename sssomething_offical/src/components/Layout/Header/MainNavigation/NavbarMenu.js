@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './NavbarMenu.module.css'
 import HamButton from './HamButton'
-import {ReactComponent as Logo} from '../../../../images/brand/sssomething-logo-2.svg'
+import {ReactComponent as Logo} from '../../../../images/brand/sss-logo-1080.svg'
 import Backdrop from '../../../Backdrop/Backdrop'
 // import Icon from '../../../Icon/Icon'
 
@@ -30,7 +30,7 @@ function NavbarMenu(props) {
             </nav>
             <div className={`${styles.desktopNavbar} ${isOpenMenu?openNavMenu:''}`}>
                 <Link to="/" className={styles.navbarBrand} >
-                    <img alt="SangSharesSomething" style={{height:45}} src='/images/brand/sssomething-logo.png'></img>
+                    <img alt="SangSharesSomething" style={{height:45}} src='/images/brand/sssomething-logo-1.png'></img>
                 </Link>
                 <ul className={styles.navbarMenu}>
                     <li className={`${styles.navbarMenuItem} ${props.whiteHeader === 'true' ? styles.whiteHeader:''}`}>

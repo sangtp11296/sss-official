@@ -36,7 +36,7 @@
         margin-right: 20px;
     }
     .navbarMenuItem .firstItem{
-        background: url('../../../../images/brand/sssomething-logo-1.png') no-repeat;
+        background: url('../../../../images/brand/sss-logo-1080.svg') no-repeat;
         background-size: 20px 20px;
     }
     .navbarMenuItem>a{
@@ -177,7 +177,7 @@
         transition: all .25s ease-in-out;
     }
     .socialLogo.whiteHeader{
-        color: var(--gray-dark) !important;
+        color: var(--gray-dark) ;
     }
     .socialLogo:first-child{
         position: relative;

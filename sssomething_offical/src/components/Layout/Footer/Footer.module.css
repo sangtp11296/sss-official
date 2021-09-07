@@ -25,10 +25,10 @@
     height: 40px;
     width: 40px;
 }
-.smallLogo>svg>path{
+/* .smallLogo>svg>path{
     fill:  var(--main-brand-color-theme);
     opacity: .7;
-}
+} */
 
 .footerSocial{
     display: flex;
