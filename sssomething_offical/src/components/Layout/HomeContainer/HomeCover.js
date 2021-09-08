@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../PostContainer/CoverTitle/CoverTitle.module.css'
+import styles from '../CoverTitle/CoverTitle.module.css'
 
 export default function HomeCover(props)  {
     return (

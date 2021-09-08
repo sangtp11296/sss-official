@@ -1,14 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import CoverTitle from './CoverTitle/CoverTitle'
 import styles from './PostContainer.module.css'
 import ShareButton from './ShareButton/ShareButton'
-// import image from '../../../images/posts/DSCF0367.jpg'
 
 const PostContainer = () => {
     return (
         <div className={styles.postContainer}>
-            <CoverTitle/>
             <div className={styles.containerArticle} itemScope itemType={'http://schema.org/Article'}>
                 <div className={styles.articleWrapper}>
                     <div className={styles.articleText}>

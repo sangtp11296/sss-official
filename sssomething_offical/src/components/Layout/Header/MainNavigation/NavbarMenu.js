@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import styles from './NavbarMenu.module.css'
 import HamButton from './HamButton'
 import {ReactComponent as Logo} from '../../../../images/brand/sss-logo-1080.svg'
+import SmallLogo from '../../../../images/brand/sss-logo-512.png'
 import Backdrop from '../../../Backdrop/Backdrop'
-// import Icon from '../../../Icon/Icon'
 
 function NavbarMenu(props) {
     const [isOpenMenu, setOpenMenu] = useState(false);
@@ -34,7 +34,8 @@ function NavbarMenu(props) {
                 </Link>
                 <ul className={styles.navbarMenu}>
                     <li className={`${styles.navbarMenuItem} ${props.whiteHeader === 'true' ? styles.whiteHeader:''}`}>
-                        <Link to="/" className={styles.firstItem}>Photography</Link>
+                        <Link to="/" className={styles.firstItem}>
+                            <img alt='' className={styles.logo} src={SmallLogo}/>Photography</Link>
                         <ul className={styles.subMenu} role="menu">
                             <li>
                                 <Link to="/explore">Explore</Link>

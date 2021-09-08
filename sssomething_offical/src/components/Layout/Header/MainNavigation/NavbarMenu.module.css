@@ -35,10 +35,16 @@
     .navbarMenuItem:not(:last-child){
         margin-right: 20px;
     }
-    .navbarMenuItem .firstItem{
+    .logo{
+        height: 25px;
+        width: 25px;
+        display: inline;
+        margin-right: 5px;
+    }
+    /* .navbarMenuItem .firstItem{
         background: url('../../../../images/brand/sss-logo-1080.svg') no-repeat;
         background-size: 20px 20px;
-    }
+    } */
     .navbarMenuItem>a{
         position: relative;
         color: white;
@@ -54,7 +60,7 @@
     }
     .firstItem{
         color: var(--main-brand-color-theme) !important;
-        padding-left: 25px;
+        /* padding-left: 25px; */
         border-bottom: 4px solid var(--main-brand-color-theme) !important;
     }
     .navbarMenuItem:last-child a{
@@ -96,7 +102,7 @@
         opacity: .9 !important;
         transition: color .15s linear;
     }
-    .navbarMenuItem a:hover{
+    .navbarMenuItem:not(:first-child) a:hover{
         opacity: .6;
         color: var(--gray) ;
     }
@@ -108,6 +114,10 @@
         visibility: visible;
         opacity: 1;
         transition: all .25s ease-in-out;
+    }
+    .firstItem:hover .logo{
+        transform: rotate(360deg);
+        transition: all .25s linear;
     }
     .subMenu>li>a:hover{
         background-color: #cecece2f;

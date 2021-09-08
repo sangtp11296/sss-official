@@ -21,10 +21,6 @@
     display: flex;
     align-items: center;
 }
-.smallLogo svg{
-    height: 40px;
-    width: 40px;
-}
 /* .smallLogo>svg>path{
     fill:  var(--main-brand-color-theme);
     opacity: .7;

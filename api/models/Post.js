@@ -6,6 +6,11 @@ const PostSchema = new mongoose.Schema({
         required:true,
         unique:true
     },
+    slug:{
+        type:String,
+        require:true,
+        unique:true
+    },
     desc:{
         type:String,
         required:true
@@ -15,6 +20,18 @@ const PostSchema = new mongoose.Schema({
         required:false
     },
     username:{
+        type:String,
+        required:true
+    },
+    authorname:{
+        type:String,
+        required:true
+    },
+    photographer:{
+        type:String,
+        required:false
+    },
+    section:{
         type:String,
         required:true
     },
