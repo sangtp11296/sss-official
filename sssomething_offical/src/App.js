@@ -4,7 +4,7 @@ import Footer from './components/Layout/Footer/Footer';
 import About from "./Pages/About/About";
 import Login from "./Pages/Account/Login";
 import Register from "./Pages/Account/Register";
-import MainPage from './Pages/MainPage/MainPage';
+import LandingPage from './Pages/LandingPage/LandingPage';
 import Home from "./Pages/Home/Home";
 import Write from "./Pages/Write/Write";
 import SinglePost from "./components/SinglePost/SinglePost";
@@ -19,19 +19,22 @@ function App() {
         <Route path="/" exact={true}>
           <Home/>
         </Route>
+        <Route path="/photography">
+          <LandingPage />
+        </Route>
         <Route path="/explore">
-          <MainPage />
+          <LandingPage />
         </Route>
         <Route path="/photographers">
-          <MainPage />
+          <LandingPage />
         </Route>
         <Route path="/challenge">
-          <MainPage />
+          <LandingPage />
         </Route>
         <Route path="/about">
           <About />
         </Route>
-        <Route path="/:mainPage/:postId">
+        <Route path="/:LandingPage/:postId">
            <SinglePost/>
         </Route>
         <Route path='/login'>

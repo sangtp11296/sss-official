@@ -34,7 +34,7 @@ function NavbarMenu(props) {
                 </Link>
                 <ul className={styles.navbarMenu}>
                     <li className={`${styles.navbarMenuItem} ${props.whiteHeader === 'true' ? styles.whiteHeader:''}`}>
-                        <Link to="/" className={styles.firstItem}>
+                        <Link to="/photography" className={styles.firstItem}>
                             <img alt='' className={styles.logo} src={SmallLogo}/>Photography</Link>
                         <ul className={styles.subMenu} role="menu">
                             <li>

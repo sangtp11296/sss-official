@@ -17,7 +17,7 @@ router.post("/", async (req,res) => {
 //Update Post
 router.put('/:id', async(req,res) => {
     try{
-        const post = Post.findById(req.params.id);
+        const post = await Post.findById(req.params.id);
         if(post.username === req.body.username){
             try{
                 const updatedPost = await Post.findByIdAndUpdate(req.params.id,{
@@ -57,8 +57,8 @@ router.delete('/:id', async(req,res) => {
 //Get Post
 router.get('/:id', async(req,res) => {
     try{
-        const post = await Post.findById(req.params.id);
-        res.status(200).json(post);
+        const posts = await Post.findById(req.params.id);
+        res.status(200).json(posts);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -68,6 +68,9 @@ router.get('/:id', async(req,res) => {
 router.get('/', async(req,res) => {
     const username = req.query.user;
     const catName = req.query.cat;
+    const authorname = req.query.author;
+    const section = req.query.section;
+    const photographer = req.query.photographer;
     try{
         let posts;
         if(username){
@@ -76,10 +79,28 @@ router.get('/', async(req,res) => {
             posts = await Post.find({categories:{
                 $in:[catName]
             }})
+        } else if(authorname){
+            posts = await Post.find({authorname})
+        } else if(photographer){
+            posts = await Post.find({photographer})
+        } else if(section){
+            posts = await Post.find({section})
         } else{
             posts = await Post.find();
         }
         res.status(200).json(posts);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+router.get('/:section', async(req,res) => {
+    
+    try{
+        const section = req.params.section;
+        const posts = await Post.find(section);
+        
+        res.status(200).json(posts);
+        
     } catch (err) {
         res.status(500).json(err);
     }
