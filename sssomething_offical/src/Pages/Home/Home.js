@@ -5,10 +5,9 @@ import './Home.module.css'
 import axios from 'axios'
 import { useLocation } from 'react-router'
 
-export default function Home() {
+export default function Home(props) {
     const [posts,setPosts] = useState([]);
     const {search} = useLocation();
-
     useEffect(() => {
         const fetchPosts = async () => {
             const res = await axios.get('/posts' + search)

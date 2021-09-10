@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './quill.css'
-import Header from '../../components/Layout/Header/Header'
 import styles from './Write.module.css'
 
 
-export default function Write() {
+export default function Write(props) {
+    props.setWhiteHeaderCallback(true);
     const [text,setText] = useState('');
     const modules = {
         toolbar: [
@@ -24,9 +24,9 @@ export default function Write() {
         'list', 'bullet', 'indent',
         'link', 'image'
       ]
+
     return (
         <div>
-            <Header whiteHeader={true}/>
             <div className={styles.write}>
                 {/* <form className={styles.writeForm}>
                     <div className={styles.writeFormGroup}>

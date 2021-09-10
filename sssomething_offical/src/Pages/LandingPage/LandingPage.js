@@ -1,22 +1,22 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios';
+import HomeContainer from '../../components/Layout/HomeContainer/HomeContainer';
+import HomeCover from '../../components/Layout/HomeContainer/HomeCover';
 
-export default function LandingPage() {
+export default function LandingPage(props) {
     const [posts,setPosts] = useState([]);
-
+    const section = props.section
     useEffect(() => {
         const fetchPosts = async () => {
-            const res = await axios.get('/posts/photography')
+            const res = await axios.get('/posts/sections/' + section)
             setPosts(res.data);
-
         }
         fetchPosts();
-        console.log(posts)
-    }, [posts])
+    }, [section])
     return (
-
         <div>
-            Mainpage
+            <HomeCover/>
+            <HomeContainer posts={posts}/>
         </div>
     )
 }

@@ -93,11 +93,11 @@ router.get('/', async(req,res) => {
         res.status(500).json(err);
     }
 })
-router.get('/:section', async(req,res) => {
+router.get('/sections/:section', async(req,res) => {
     
     try{
         const section = req.params.section;
-        const posts = await Post.find(section);
+        const posts = await Post.find({section});
         
         res.status(200).json(posts);
         

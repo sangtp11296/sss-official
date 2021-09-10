@@ -9,27 +9,42 @@ import Home from "./Pages/Home/Home";
 import Write from "./Pages/Write/Write";
 import SinglePost from "./components/SinglePost/SinglePost";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import { useState } from "react";
 
 function App() {
+  const [whiteheader,setWhiteHeader] = useState(false);
+  
+  const setWhiteHeaderFunction = (childData) =>{
+      setTimeout(()=>setWhiteHeader(childData))
+  }
   return (
     <Router>
       <ScrollToTop/>
-      <Header/>
+      <Header whiteHeader={whiteheader}/>
       <Switch>
         <Route path="/" exact={true}>
-          <Home/>
+          <Home />
         </Route>
         <Route path="/photography">
-          <LandingPage />
+          <LandingPage section='Photography' />
         </Route>
         <Route path="/explore">
-          <LandingPage />
+          <LandingPage section='Explore'/>
         </Route>
         <Route path="/photographers">
-          <LandingPage />
+          <LandingPage section='Photographers'/>
         </Route>
         <Route path="/challenge">
-          <LandingPage />
+          <LandingPage section='Challenge'/>
+        </Route>
+        <Route path="/book">
+          <LandingPage section='Book'/>
+        </Route>
+        <Route path="/music">
+          <LandingPage section='Music'/>
+        </Route>
+        <Route path="/life">
+          <LandingPage section='Life'/>
         </Route>
         <Route path="/about">
           <About />
@@ -38,13 +53,13 @@ function App() {
            <SinglePost/>
         </Route>
         <Route path='/login'>
-          <Login/>
+          <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path='/register'>
-          <Register/>
+          <Register setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/write">
-          <Write/>
+          <Write setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
       </Switch>
       <Footer/>
