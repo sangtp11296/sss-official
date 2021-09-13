@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import styles from './NavbarMenu.module.css'
 import HamButton from './HamButton'
 import {ReactComponent as Logo} from '../../../../images/brand/sss-logo-1080.svg'
 import SmallLogo from '../../../../images/brand/sss-logo-512.png'
 import Backdrop from '../../../Backdrop/Backdrop'
+import { Context } from '../../../../context/Context'
 
 function NavbarMenu(props) {
+    const {user, dispatch} = useContext(Context)
     const [isOpenMenu, setOpenMenu] = useState(false);
     const openMenu = () => {
         setOpenMenu(!isOpenMenu);
@@ -16,6 +18,11 @@ function NavbarMenu(props) {
     const [isOpenSearch, setOpenSearch] = useState(false);
     const openSearchBar = () =>{
         setOpenSearch(!isOpenSearch);
+    }
+    let history = useHistory()
+    const handleLogout = () => {
+        dispatch({type:"LOGOUT"})
+        history.push('/login')
     }
 
     return (
@@ -76,7 +83,15 @@ function NavbarMenu(props) {
                 <a href="https://www.instagram.com/nguoidiban.mua/" rel="noopener noreferrer" className={`${styles.igLogo} ${styles.socialLogo} ${props.whiteHeader === 'true' ? styles.whiteHeader:''}`} target="_blank">
                     <i className="fab fa-instagram fa-2x"></i>
                 </a>
-                <Link className={`${styles.avatar} ${isOpenSearch?styles.active:null}`} to='/about'></Link>
+                <div className={styles.account}>
+                    <Link className={`${styles.avatar} ${isOpenSearch?styles.active:null}`} to='/about'></Link>
+                    {user ? <ul className={styles.popup}>
+                                <li className={styles.write}><Link to='/write'>Write Post</Link></li>
+                                <li className={styles.logOut} onClick={handleLogout}>Log Out</li>
+                            </ul> : null
+                    }
+                </div>
+                
             </div>
             {isOpenMenu && <Backdrop onClose={openMenu} />}
         </div>

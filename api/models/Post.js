@@ -15,7 +15,7 @@ const PostSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    photo:{
+    coverPhoto:{
         type:String,
         required:false
     },
@@ -41,7 +41,7 @@ const PostSchema = new mongoose.Schema({
     },
     tag:{
         type:String,
-        required:true
+        required:false
     }
 },{timestamps: true});
 

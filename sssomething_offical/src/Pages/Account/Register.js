@@ -10,27 +10,32 @@ export default function Register(props) {
     const [password,setPassword] = useState('');
     const [password1,setPassword1] = useState('');
     const [password2,setPassword2] = useState('');
+    const [passerr,setPassErr] = useState(false);
     const [error,setError] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError(false);
+        setPassErr(false);
         try{
-            const res = await axios.post('/auth/register',{
-                username,
-                authorname,
-                email,
-                password
-            });
-            // res.data && window.location.replace('/login');
-            console.log(res.data)
+            if(password1 === password2) {
+                setPassword(password1)
+                console.log(password2)
+                const res = await axios.post('/auth/register',{
+                    username,
+                    authorname,
+                    email,
+                    password
+                });
+                res.data && window.location.replace('/login');
+                console.log(res.data)
+            } else{
+                setPassErr(true);
+            }
         } catch (err){
             setError(true);
         }
-        if('password1' === 'password2') {
-            setPassword(password1)
-            console.log(password2)
-        }
+        
     }
     return (
         <div className={styles.register}>
@@ -42,7 +47,7 @@ export default function Register(props) {
                 <input type='text' placeholder='Enter your author name...' className={styles.registerInput} onChange={e=>setAuthorname(e.target.value)}></input>
                 <label>Email<span className={styles.red}>*</span></label>
                 <input type='text' placeholder='Enter your email...' className={styles.registerInput} onChange={e=>setEmail(e.target.value)}></input>
-                <label>Password<span className={styles.red}>*</span></label>
+                <label>Password<span className={styles.red}>*</span>{passerr?<span className={styles.red}> Password not the same!</span>:null}</label>
                 <input type='password' className={styles.registerInput} onChange={e=>setPassword1(e.target.value)}></input>
                 <label>Confirm Your Password<span className={styles.red}>*</span></label>
                 <input type='password' className={styles.registerInput} onChange={e=>setPassword2(e.target.value)}></input>

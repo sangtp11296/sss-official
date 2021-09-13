@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useReducer, useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../../context/Context';
 import './Login.css'
@@ -9,7 +9,7 @@ function Login(props) {
 
     const userRef = useRef();
     const passRef = useRef();
-    const { user, dispatch, isFetching} = useContext(Context)
+    const { dispatch, isFetching} = useContext(Context)
 
     const handleSubmit = async (e)=> {
         e.preventDefault();
@@ -24,7 +24,6 @@ function Login(props) {
             dispatch({type:"LOGIN_FAILURE"})
         }
     }
-    console.log(user)
     return (
         <div className='login'>
             <form className='loginForm' onSubmit={handleSubmit}>
@@ -33,7 +32,7 @@ function Login(props) {
                 <input type='text' placeholder='Welcome back!' className='loginInput' ref={userRef}></input>
                 <label>Password</label>
                 <input type='password' className='loginInput' ref={passRef}></input>
-                <button className='loginBtn' type='submit'>Login</button>
+                <button className='loginBtn' type='submit' disabled={isFetching}>Login</button>
                 <h5>Don't have an account?</h5>
                 <Link to='/register'>
                     <button className='registerBtn'>Register</button>

@@ -5,7 +5,8 @@ import styles from './SinglePost.module.css'
 import { useLocation } from 'react-router'
 import axios from 'axios'
 
-export default function SinglePost() {
+export default function SinglePost(props) {
+    props.setWhiteHeaderCallback(false);
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const [post,setPost] = useState({});

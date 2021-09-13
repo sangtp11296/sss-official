@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useLocation } from 'react-router'
 
 export default function Home(props) {
+    // props.setWhiteHeaderCallback(false);
     const [posts,setPosts] = useState([]);
     const {search} = useLocation();
     useEffect(() => {

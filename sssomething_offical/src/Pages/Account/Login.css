@@ -47,6 +47,10 @@
     padding: 10px;
     transition: all .15s linear;
 }
+.loginBtn:disabled{
+    cursor: not-allowed;
+    
+}
 .loginBtn:hover{
     opacity: 0.7;
 }

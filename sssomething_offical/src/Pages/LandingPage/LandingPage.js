@@ -4,6 +4,7 @@ import HomeContainer from '../../components/Layout/HomeContainer/HomeContainer';
 import HomeCover from '../../components/Layout/HomeContainer/HomeCover';
 
 export default function LandingPage(props) {
+    props.setWhiteHeaderCallback(false);
     const [posts,setPosts] = useState([]);
     const section = props.section
     useEffect(() => {

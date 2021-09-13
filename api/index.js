@@ -16,8 +16,8 @@ mongoose.connect(process.env.MONGO_URL)
 .catch((err) => console.log(err));
 
 const storage = multer.diskStorage({
-    destination:(req,file,cb) =>{
-        cb(null,'images');
+    destination:(req,file,cb) => {
+        cb(null,'images/covers');
     },
     filename:(req,file,cb) => {
         cb(null,req.body.name);
@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage});
 app.post('api/upload', upload.single('file'), (req,res) => {
-    res.status(200).json("File has been updated!");
+    res.status(200).json("Cover has been updated!");
 })
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
