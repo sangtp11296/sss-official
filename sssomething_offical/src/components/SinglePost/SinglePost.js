@@ -10,9 +10,11 @@ export default function SinglePost(props) {
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const [post,setPost] = useState({});
+    console.log(path)
     useEffect(()=>{
         const getPost = async () => {
             const res = await axios.get('/posts/' + path);
+            
             setPost(res.data);
         }
         getPost();

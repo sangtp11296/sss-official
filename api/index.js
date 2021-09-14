@@ -7,9 +7,11 @@ const userRoute = require('./routes/users');
 const postRoute = require('./routes/posts');
 const categoryRoute = require('./routes/categories');
 const multer = require('multer');
+const path = require('path');
 
 dotenv.config();
 app.use(express.json());
+app.use('/images/covers', express.static(path.join(__dirname,'/images/covers')))
 
 mongoose.connect(process.env.MONGO_URL)
 .then(console.log('Connected to MongoDB'))
@@ -25,7 +27,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage:storage});
-app.post('api/upload', upload.single('file'), (req,res) => {
+app.post('/api/upload', upload.single('file'), (req,res) => {
     res.status(200).json("Cover has been updated!");
 })
 app.use('/api/auth', authRoute);

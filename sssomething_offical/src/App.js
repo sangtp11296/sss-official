@@ -29,25 +29,25 @@ function App() {
           <Home setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/photography">
-          <LandingPage section='Photography' setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='photography' setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/explore">
-          <LandingPage section='Explore'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='explore'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/photographers">
-          <LandingPage section='Photographers'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='photographers'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/challenge">
-          <LandingPage section='Challenge'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='challenge'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/book">
-          <LandingPage section='Book'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='book'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/music">
-          <LandingPage section='Music'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='music'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/life">
-          <LandingPage section='Life'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+          <LandingPage section='life'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/about">
           <About />
