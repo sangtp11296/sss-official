@@ -6,10 +6,10 @@ export default function Post(props) {
     const coversFolder = 'http://localhost:5000/images/covers/'
     return (
         <div className={styles.post}>
-            {props.post.coverPhoto && (<Link to={`/posts/${props.post._id}`}><img className={styles.postImg} src={coversFolder + props.post.coverPhoto} alt={props.post.title}/></Link>)}
+            {props.post.coverPhoto && (<Link to={`/posts/${props.post.slug}`}><img className={styles.postImg} src={coversFolder + props.post.coverPhoto} alt={props.post.title}/></Link>)}
             <div className={styles.postInfo}>
                 <div className={styles.postTitle}>
-                    <Link to={`/posts/${props.post._id}`}>
+                    <Link to={`/posts/${props.post.slug}`}>
                         {props.post.title}
                     </Link>
                 </div>

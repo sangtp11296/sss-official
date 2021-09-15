@@ -62,7 +62,7 @@ function NavbarMenu(props) {
                         <Link to="/music">Music</Link>
                     </li>
                     <li className={`${styles.navbarMenuItem} ${props.whiteHeader === 'true' ? styles.whiteHeader:''}`}>
-                        <Link to="/about">Life</Link>
+                        <Link to="/life">Life</Link>
                     </li>
                     <li className={`${styles.navbarMenuItem} ${props.whiteHeader === 'true' ? styles.whiteHeader:''}`}>
                         <Link to="/portfolio">Through My Lens</Link>
