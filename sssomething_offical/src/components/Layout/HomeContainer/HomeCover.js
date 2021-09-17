@@ -1,21 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styles from '../CoverTitle/CoverTitle.module.css'
 
 export default function HomeCover(props)  {
     return (
-        <div className={styles.articleCover}>
+        <div className={styles.articleCover} style={{backgroundImage:`url(http://localhost:5000/images/covers/${props.posts.coverPhoto})`}}>
             <div className={styles.coverImageGradient}></div>
             <h1 className={styles.articleCoverTitle}>
                 <div className={styles.titleWrapper}>
-                    <div className={styles.category}>Photography</div>
-                    <div className={styles.title}>In the middle of the night i crawl onto your chest and purr gently to help you sleep</div>
-                    <div className={styles.articleCoverSummary}>Lie on your belly and purr when you are asleep eat and than sleep on your face scratch at fleas, meow until belly rubs, hide behind curtain when vacuum cleaner is on scratch strangers and poo on owners food flex claws on the human's belly and purr like a lawnmower</div>
+                    <div className={styles.category}><Link to={`/${props.posts.section}`}>{props.posts.section}</Link></div>
+                    <div className={styles.title}>
+                        <Link to={`posts/${props.posts.slug}`}>{props.posts.title}</Link>
+                    </div>
+                    <div className={styles.articleCoverSummary}>{props.posts.desc}</div>
                     <div className={styles.authorText}>
                         <em>
                             <p>
-                                Photographs by Sang Tran Phuc
+                                {props.posts.photographer ? <span>Photographs by <Link to={`/?author=${props.posts.photographer}`}>{props.posts.photographer}</Link></span>:null}
                                 <br/>
-                                Essay by Sang Tran Phuc
+                                {props.posts.authorname ? <span>Essay by <Link to={`/?author=${props.posts.authorname}`}>{props.posts.authorname}</Link></span>:null}
                             </p>
                         </em>
                     </div>

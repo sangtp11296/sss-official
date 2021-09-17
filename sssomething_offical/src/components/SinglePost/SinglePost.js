@@ -9,21 +9,17 @@ export default function SinglePost(props) {
     props.setWhiteHeaderCallback(false);
     const location = useLocation();
     const slug = location.pathname.split('/')[2];
-    const [post,setPost] = useState([]);
+    const [post,setPost] = useState([{}]);
     useEffect(()=>{
         const getPost = async () => {
             const res = await axios.get('/posts/' + slug);
-            setPost(res.data);
-            if (res.data.length===1){
-                console.log('true')
-            }
+           setPost(res.data);
         }
         getPost();
     },[slug])
     return (
         <div className={styles.singlePost}>
-            {console.log(post)}
-            {/* <CoverTitle postCover={post[0]}/> */}
+            <CoverTitle postCover={post[0]}/>
             <PostContainer/>
         </div>
     )

@@ -7,7 +7,7 @@ import { useLocation } from 'react-router'
 
 export default function Home(props) {
     props.setWhiteHeaderCallback(false);
-    const [posts,setPosts] = useState([]);
+    const [posts,setPosts] = useState([{}]);
     const {search} = useLocation();
     useEffect(() => {
         const fetchPosts = async () => {
@@ -19,7 +19,7 @@ export default function Home(props) {
     return (
         <div className="en-lang" lang="en">
             <div className="main-content">
-                <HomeCover/>
+                <HomeCover posts={posts[0]}/>
                 <HomeContainer posts={posts}/>
             </div>
         </div>

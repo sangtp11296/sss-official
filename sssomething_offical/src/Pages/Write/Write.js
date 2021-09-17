@@ -71,7 +71,7 @@ export default function Write(props) {
         }
         try{
             const res = await axios.post('/posts', newPost);
-            window.location.replace('/posts' + res.data.slug);
+            window.location.replace('/posts/' + res.data.slug);
         }catch(err){}
         
     }

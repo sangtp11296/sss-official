@@ -1,8 +1,8 @@
 import React from 'react'
-import styles from './Post.module.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import styles from './NormalPost.module.css'
 
-export default function Post(props) {
+export default function NormalPost(props) {
     const coversFolder = 'http://localhost:5000/images/covers/'
     return (
         <div className={styles.post}>
@@ -28,4 +28,3 @@ export default function Post(props) {
         </div>
     )
 }
-
