@@ -75,19 +75,19 @@ router.get('/', async(req,res) => {
     try{
         let posts;
         if(username){
-            posts = await Post.find({username});
+            posts = await Post.find({username}).sort({createdAt: -1}).exec();;
         } else if(catName){
             posts = await Post.find({categories:{
                 $in:[catName]
-            }})
+            }}).sort({createdAt: -1}).exec();
         } else if(authorname){
-            posts = await Post.find({authorname})
+            posts = await Post.find({authorname}).sort({createdAt: -1}).exec();
         } else if(photographer){
-            posts = await Post.find({photographer})
+            posts = await Post.find({photographer}).sort({createdAt: -1}).exec();
         } else if(section){
-            posts = await Post.find({section})
+            posts = await Post.find({section}).sort({createdAt: -1}).exec();
         } else{
-            posts = await Post.find({}).sort({createdAt: -1}).exec();
+            posts = await Post.find({}).sort({createdAt: -1}).limit(5).exec();
         }
         res.status(200).json(posts);
     } catch (err) {
@@ -98,7 +98,7 @@ router.get('/sections/:section', async(req,res) => {
     
     try{
         const section = req.params.section;
-        const posts = await Post.find({section});
+        const posts = await Post.find({section}).sort({createdAt: -1}).exec();;
         res.status(200).json(posts);
         
     } catch (err) {

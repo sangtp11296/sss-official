@@ -13,6 +13,7 @@ export default function Write(props) {
     const [section,setSection] = useState('');
     const [categories,setCats] = useState([]);
     const [desc,setDesc] = useState('');
+    const [photographer,setPhotographer] = useState('');
     const [cover,setCover] = useState(null);
     const {user} = useContext(Context);
 
@@ -57,6 +58,7 @@ export default function Write(props) {
             section,
             categories,
             authorname:user.authorname,
+            photographer,
         }
         if (cover){
             const data = new FormData();
@@ -127,6 +129,10 @@ export default function Write(props) {
                                 <div className={styles.textField}>
                                     <label>Title of the Post<span className={styles.textDanger}>*</span></label>
                                     <input name='title' type='text' required maxLength='500' className={styles.textInput} autoFocus={true} placeholder='Title' onChange={e=>{setTitle(e.target.value)}}/>
+                                </div>
+                                <div className={styles.textField}>
+                                    <label>Photographer's Name</label>
+                                    <input name='photographer' type='text' required maxLength='500' className={styles.textInput} autoFocus={false} placeholder='Photographer Name...' onChange={e=>{setPhotographer(e.target.value)}}/>
                                 </div>
                                 <div className={styles.textField}>
                                     <label>Sections<span className={styles.textDanger}>*</span></label>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from '../CoverTitle/CoverTitle.module.css'
 
 export default function HomeCover(props)  {
+
     return (
         <div className={styles.articleCover} style={{backgroundImage:`url(http://localhost:5000/images/covers/${props.posts.coverPhoto})`}}>
             <div className={styles.coverImageGradient}></div>

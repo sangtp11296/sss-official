@@ -5,7 +5,7 @@ import HomeCover from '../../components/Layout/HomeContainer/HomeCover';
 
 export default function LandingPage(props) {
     props.setWhiteHeaderCallback(false);
-    const [posts,setPosts] = useState([]);
+    const [posts,setPosts] = useState([{}]);
     const section = props.section
     useEffect(() => {
         const fetchPosts = async () => {
@@ -14,9 +14,10 @@ export default function LandingPage(props) {
         }
         fetchPosts();
     }, [section])
+    console.log(posts)
     return (
         <div>
-            <HomeCover/>
+            <HomeCover posts={posts[0]}/>
             <HomeContainer posts={posts}/>
         </div>
     )
