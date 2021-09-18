@@ -1,8 +1,14 @@
-import React, { useState,useCallback,useEffect } from 'react'
+import React, { useState,useCallback,useEffect, useContext } from 'react'
 import styles from './ShareButton.module.css'
+import {Context} from '../../../../context/Context'
+import { useLocation } from 'react-router'
+import axios from 'axios'
 
 
 const ShareButton = (props) => {
+    const location = useLocation();
+    const path = location.pathname.split('/')[2];
+    const {user} = useContext(Context);
     const [visible, setVisible] = useState(false);
     const scrollDetect = useCallback(
         (e) => {
@@ -41,21 +47,41 @@ const ShareButton = (props) => {
         const mailButton = document.querySelector('#mailBtn');
         mailButton.setAttribute('href', `'mailto:?subject=' . ${postTitle} . '&body=Check out this site: '. ${postUrl} .'" title="Share by Email'`);
     }
+
+    function handleEdit(){
+        
+    }
+    async function handleDelete(){
+        try{
+            await axios.delete('/posts/' + path, {
+                data:{username:user.username}})
+            window.location.replace('/')
+        }catch (err){}
+    }
     
     return (
         <div className={`${styles.shareButtonContainer} ${visible?styles.visible:''}`}>
-            <a className={styles.fbButton} href=' ' id="fbBtn" onClick={fbShare} target="_blank">
+            <a className={`${styles.btn} ${styles.fbButton}`} href=' ' id="fbBtn" onClick={fbShare} target="_blank">
                 <i className="fab fa-facebook-f"></i>
             </a>
             <div className={`${styles.quotes} ${styles.fbQuotes}`}>Share</div>
-            <a className={styles.twButton} href=' ' id="twBtn" onClick={twShare} target="_blank">
+            <a className={`${styles.btn} ${styles.twButton}`} href=' ' id="twBtn" onClick={twShare} target="_blank">
                 <i className="fab fa-twitter"></i>
             </a>
             <div className={`${styles.quotes} ${styles.twQuotes}`}>Tweet</div>
-            <a className={styles.mailButton} href=' ' id="mailBtn" onClick={mailShare} target="_blank">
+            <a className={`${styles.btn} ${styles.mailButton}`} href=' ' id="mailBtn" onClick={mailShare} target="_blank">
                 <i className="fa fa-envelope"></i>
             </a>
             <div className={`${styles.quotes} ${styles.mailQuotes}`}>Mail</div>
+            {user ? <>
+                        <div className={`${styles.btn} ${styles.editButton}`} onClick={handleEdit} id="editBtn">
+                            <i className="fas fa-pen-square"></i>
+                        </div><div className={`${styles.quotes}`}>Edit</div>
+                        <div className={`${styles.btn} ${styles.deleteButton}`} onClick={handleDelete}>
+                            <i className="fas fa-trash-alt"></i>
+                        </div>
+                        <div className={`${styles.quotes}`}>Delete</div>
+                    </> : null}
         </div>
     )
 }

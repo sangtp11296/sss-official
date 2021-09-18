@@ -1,8 +1,8 @@
 .post{
     /* width: 500px; */
     position: relative;
-    box-shadow: rgba(100, 100, 111, .2) 0px 7px 29px 0px;
-    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, .2) 5px 5px 29px 0px;
+    border-radius: 15px;
     overflow: hidden;
     background-size: cover;
     background-position: center;
@@ -31,7 +31,7 @@
     grid-area: p6;
 }
 .post:hover{
-    box-shadow: rgba(100, 100, 111, .5) 0px 7px 29px 0px;
+    box-shadow: rgba(100, 100, 111, .5) 5px 5px 29px 0px;
 }
 .postCats{
     display: flex;
@@ -78,7 +78,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     text-align: right;
 }

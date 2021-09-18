@@ -13,7 +13,7 @@ export default function SinglePost(props) {
     useEffect(()=>{
         const getPost = async () => {
             const res = await axios.get('/posts/' + slug);
-           setPost(res.data);
+            setPost(res.data);
         }
         getPost();
     },[slug])

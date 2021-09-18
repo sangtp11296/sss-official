@@ -1,12 +1,11 @@
 .post{
-    /* width: 100px; */
+    display: flex;
     position: relative;
     box-shadow: rgba(100, 100, 111, .2) 0px 7px 29px 0px;
-    border-radius: 10px;
-    /* overflow: hidden; */
-    display: flex;
+    border-radius: 15px !important;
     flex-direction: column;
     transition: all .15s linear;
+    overflow: hidden;
 }
 .post:first-child{
     grid-area: p1;
@@ -33,34 +32,15 @@
     height: 200px;
     width: 100%;
     object-fit: cover;
-    border-bottom: 0;
     cursor: pointer;
 }
-.postCats{
-    display: flex;
-    justify-content: flex-end;
-    flex-shrink: 0;
-}
-.postCat{
-    margin-left: 10px;
-    font-weight: 300;
-    font-size: 12px;
-    cursor: pointer;
-    opacity: .7;
-    text-transform: capitalize;
-}
-.postCat:first-child{
-    margin-left: 0px;;
-}
-.postCat:hover{
-    color: var(--dark-gray);
-}
+
 .postInfo{
     display: flex;
     flex-direction: column;
     margin: 10px;
     overflow: hidden;
-    height: calc(100% - 285px);
+    height: calc(100% - 200px);
 }
 .postTitle{
     font-size: 15px;
@@ -90,4 +70,23 @@
     font-style: italic;
     opacity: .7;
     text-align: right;
+}
+.postCats{
+    display: flex;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+.postCat{
+    margin-left: 10px;
+    font-weight: 300;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: .7;
+    text-transform: capitalize;
+}
+.postCat:first-child{
+    margin-left: 0px;;
+}
+.postCat:hover{
+    color: var(--dark-gray);
 }

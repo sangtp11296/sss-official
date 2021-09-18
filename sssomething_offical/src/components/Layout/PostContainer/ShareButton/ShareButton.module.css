@@ -15,7 +15,7 @@
     transition: visibility .3s ease, opacity 0.3s ease;
 }
 
-.shareButtonContainer a{
+.shareButtonContainer .btn{
     display: block;
     position: relative;
     background-color: #555;
@@ -34,7 +34,7 @@
     background-color: #333;
 }
 
-.shareButtonContainer a i{
+.shareButtonContainer .btn i{
     font-size: 22px;
     line-height: 40px;
 }
