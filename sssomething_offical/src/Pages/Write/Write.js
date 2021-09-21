@@ -5,6 +5,8 @@ import { Context } from '../../context/Context';
 import './quill.css'
 import styles from './Write.module.css'
 import axios from 'axios'
+import QuillEditor from '../../components/Editor/QuillEditor';
+// import QuillEditor from '../../components/Editor/QuillEditor';
 
 
 export default function Write(props) {
@@ -15,7 +17,9 @@ export default function Write(props) {
     const [desc,setDesc] = useState('');
     const [photographer,setPhotographer] = useState('');
     const [cover,setCover] = useState(null);
+    const [content,setContent] = useState('');
     const {user} = useContext(Context);
+    const [error,setError] = useState(false);
 
     function toSlug(str)
     {
@@ -50,6 +54,7 @@ export default function Write(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(false)
         const newPost = {
             username:user.username,
             title,
@@ -59,6 +64,7 @@ export default function Write(props) {
             categories,
             authorname:user.authorname,
             photographer,
+            content
         }
         if (cover){
             const data = new FormData();
@@ -74,27 +80,39 @@ export default function Write(props) {
         try{
             const res = await axios.post('/posts', newPost);
             window.location.replace('/posts/' + res.data.slug);
-        }catch(err){}
+        }catch(err){
+            setError(true)
+        }
         
     }
-    
-
-    const [text,setText] = useState('');
+    // const modules = {
+    //     toolbar: [
+    //       [{ 'header': [1, 2, false] }],
+    //       ['bold', 'italic', 'underline','strike', 'blockquote'],
+    //       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+    //       ['link', 'image'],
+    //       ['clean']
+    //     ],
+    //   }
     const modules = {
+        // syntax: true,
         toolbar: [
-          [{ 'header': [1, 2, false] }],
-          ['bold', 'italic', 'underline','strike', 'blockquote'],
-          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-          ['link', 'image'],
-          ['clean']
-        ],
-      }
-    
+          [{ 'font': [] }, { 'size': [] }],
+          [ 'bold', 'italic', 'underline', 'strike' ],
+          [{ 'color': [] }, { 'background': [] }],
+          [{ 'script': 'super' }, { 'script': 'sub' }],
+          [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block' ],
+          [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
+          [ 'direction', { 'align': [] }],
+          [ 'link', 'image', 'video', 'formula' ],
+          [ 'clean' ]
+        ]
+    }
     const formats = [
         'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet', 'indent',
-        'link', 'image'
+        'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block', 'color', 'background', 'script', 'size', 'font',
+        'list', 'bullet', 'indent', 'direction', 'align',
+        'link', 'image', 'video', 'fomula', 'clean'
       ]
     return (
         <div className={styles.container}>
@@ -132,7 +150,7 @@ export default function Write(props) {
                                 </div>
                                 <div className={styles.textField}>
                                     <label>Photographer's Name</label>
-                                    <input name='photographer' type='text' required maxLength='500' className={styles.textInput} autoFocus={false} placeholder='Photographer Name...' onChange={e=>{setPhotographer(e.target.value)}}/>
+                                    <input name='photographer' type='text' maxLength='500' className={styles.textInput} placeholder='Photographer Name...' onChange={e=>{setPhotographer(e.target.value)}}/>
                                 </div>
                                 <div className={styles.textField}>
                                     <label>Sections<span className={styles.textDanger}>*</span></label>
@@ -157,12 +175,14 @@ export default function Write(props) {
                                 </div>
                                 <div className={styles.textField}>
                                     <label>Main Content<span className={styles.textDanger}>*</span></label>
-                                    <ReactQuill theme='snow' value={text} onChange={setText} placeholder='Show me something...' modules={modules} formats={formats} />
+                                    <ReactQuill theme='snow' value={content} onChange={setContent} placeholder='Show me something...' modules={modules} formats={formats} />
+                                    <QuillEditor/>
                                 </div>
                                 <div className={styles.submit}>
                                     <button className={styles.uploadBtn}>Preview</button>
                                     <button className={styles.uploadBtn} type='submit'>Submit</button>
                                 </div>
+                                {error ? <div><h5 style={{color:'red',textAlign:'right'}}>Something went wrong! Please check again...</h5></div>:null}
                             </form>
                         </div>
                     </div>

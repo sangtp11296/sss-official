@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom'
 import styles from './PostContainer.module.css'
 import ShareButton from './ShareButton/ShareButton'
 
-const PostContainer = () => {
+const PostContainer = (props) => {
     return (
         <div className={styles.postContainer}>
             <div className={styles.containerArticle} itemScope itemType={'http://schema.org/Article'}>
                 <div className={styles.articleWrapper}>
                     <div className={styles.articleText}>
+                        <div dangerouslySetInnerHTML={{__html:props.postContent}}></div>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id obcaecati placeat quibusdam architecto sequi corrupti impedit eaque ut soluta consectetur. Dolores mollitia vero porro vel sed. Explicabo possimus enim cum!
                         </p>
                         <figure className={styles.articlePhotoBlock}>

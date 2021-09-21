@@ -14,7 +14,6 @@ export default function LandingPage(props) {
         }
         fetchPosts();
     }, [section])
-    console.log(posts)
     return (
         <div>
             <HomeCover posts={posts[0]}/>

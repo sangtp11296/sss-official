@@ -30,6 +30,7 @@
 }
 .articleText p{
     margin-bottom: 30px;
+    text-align: justify;
 }
 .articlePhotoBlock{
     margin: 0 0 30px;

@@ -42,6 +42,10 @@ const PostSchema = new mongoose.Schema({
     tag:{
         type:String,
         required:false
+    },
+    content:{
+        type:String,
+        required: true
     }
 },{timestamps: true});
 

@@ -8,8 +8,12 @@ const postRoute = require('./routes/posts');
 const categoryRoute = require('./routes/categories');
 const multer = require('multer');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 dotenv.config();
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(express.json());
 app.use('/images/covers', express.static(path.join(__dirname,'/images/covers')))
 

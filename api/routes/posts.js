@@ -87,7 +87,7 @@ router.get('/', async(req,res) => {
         } else if(section){
             posts = await Post.find({section}).sort({createdAt: -1}).exec();
         } else{
-            posts = await Post.find({}).sort({createdAt: -1}).limit(5).exec();
+            posts = await Post.find({}).sort({createdAt: -1}).limit(6).exec();
         }
         res.status(200).json(posts);
     } catch (err) {
