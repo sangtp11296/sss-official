@@ -29,10 +29,22 @@ const storage = multer.diskStorage({
         cb(null,req.body.name);
     }
 })
+const gallery = multer.diskStorage({
+    destination:(req,file,cb) => {
+        cb(null,'images/gallery');
+    },
+    filename:(req,file,cb) => {
+        cb(null,req.body.name);
+    }
+})
 
 const upload = multer({storage:storage});
 app.post('/api/upload', upload.single('file'), (req,res) => {
-    res.status(200).json("Cover has been updated!");
+    res.status(200).json("Cover has been uploaded!");
+})
+const uploadPost = multer({storage:gallery});
+app.post('/api/uploads', uploadPost.single('file'), (req,res) => {
+    res.status(200).json("Photo has been uploaded!");
 })
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
