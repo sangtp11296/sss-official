@@ -1,13 +1,12 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './PostContainer.module.css'
 import ShareButton from './ShareButton/ShareButton'
 
 const PostContainer = (props) => {
-    let history = useHistory
     const editCallBackFunction = (editData) => {
         if(editData){
-            history.push('/')
+            props.editCallBackProp(true)
         }
     }
     return (

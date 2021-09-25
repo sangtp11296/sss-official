@@ -11,6 +11,7 @@ import SinglePost from "./components/SinglePost/SinglePost";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { useContext, useState } from "react";
 import { Context } from "./context/Context";
+import Edit from "./Pages/Write/Edit";
 
 function App() {
   const {user} = useContext(Context);
@@ -64,7 +65,7 @@ function App() {
         <Route path="/write">
           {user ? <Write setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}
         </Route>
-        <Route path="/?:params"></Route>
+        <Route path="/edit" component={Edit}/>
       </Switch>
       {/* <Footer/> */}
     </Router>

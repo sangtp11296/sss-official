@@ -14,7 +14,7 @@ import 'ckeditor5-custom-build/build/translations/zh-cn';
 
 
 export default function Write(props) {
-    props.setWhiteHeaderCallback(true);
+    props.setWhiteHeaderCallback(true);  
     const [title,setTitle] = useState('');
     const [section,setSection] = useState('');
     const [categories,setCats] = useState([]);
@@ -262,10 +262,10 @@ export default function Write(props) {
                                         editor={ Editor }
                                         config={ editorConfiguration }
                                         // data='null'
-                                        onReady={ editor => {
-                                            // You can store the "editor" and use when it is needed.
-                                            console.log( 'Editor is ready to use!', editor );
-                                        } }
+                                        // onReady={ editor => {
+                                        //     // You can store the "editor" and use when it is needed.
+                                        //     console.log( 'Editor is ready to use!', editor );
+                                        // } }
                                         onChange={ ( event, editor ) => {
                                             const data = editor.getData();
                                             // console.log( { event, editor, data } );
