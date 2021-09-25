@@ -6,6 +6,7 @@ import axios from 'axios'
 
 
 const ShareButton = (props) => {
+    // const [edit, setEdit] = useState(false);
     const location = useLocation();
     const path = location.pathname.split('/')[2];
     const {user} = useContext(Context);
@@ -48,8 +49,9 @@ const ShareButton = (props) => {
         mailButton.setAttribute('href', `'mailto:?subject=' . ${postTitle} . '&body=Check out this site: '. ${postUrl} .'" title="Share by Email'`);
     }
 
-    function handleEdit(){
-        
+    function handleEdit(e){
+        e.preventDefault()
+        props.editCallbackProp(true)
     }
     async function handleDelete(){
         try{

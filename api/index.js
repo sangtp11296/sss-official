@@ -16,6 +16,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(express.json());
 app.use('/images/covers', express.static(path.join(__dirname,'/images/covers')))
+app.use('/images/gallery', express.static(path.join(__dirname,'/images/gallery')))
 
 mongoose.connect(process.env.MONGO_URL)
 .then(console.log('Connected to MongoDB'))
@@ -34,7 +35,7 @@ const gallery = multer.diskStorage({
         cb(null,'images/gallery');
     },
     filename:(req,file,cb) => {
-        cb(null,req.body.name);
+        cb(null,file.originalname);
     }
 })
 
@@ -43,8 +44,11 @@ app.post('/api/upload', upload.single('file'), (req,res) => {
     res.status(200).json("Cover has been uploaded!");
 })
 const uploadPost = multer({storage:gallery});
-app.post('/api/uploads', uploadPost.single('file'), (req,res) => {
-    res.status(200).json("Photo has been uploaded!");
+app.post('/api/uploads', uploadPost.single('upload'), (req,res) => {
+    res.status(200).json({
+        uploaded: true,
+        url: `http://localhost:5000/images/gallery/${req.file.originalname}`
+    });
 })
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);

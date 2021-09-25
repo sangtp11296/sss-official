@@ -15,7 +15,7 @@ const CoverTitle = (props) => {
                     <div className={styles.authorText}>
                         <em>
                             <p>
-                                {props.postCover.photographer ? <span>Photographs by <Link to={`/?author=${props.postCover.photographer}`}>{props.postCover.photographer}</Link></span>:null}
+                                {props.postCover.photographer ? <span>Photographs by <Link to={`/?photographer=${props.postCover.photographer}`}>{props.postCover.photographer}</Link></span>:null}
                                 <br/>
                                 {props.postCover.authorname ? <span>Essay by <Link to={`/?author=${props.postCover.authorname}`}>{props.postCover.authorname}</Link></span>:null}
                             </p>

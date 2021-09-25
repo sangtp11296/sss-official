@@ -17,7 +17,6 @@ export default function SinglePost(props) {
         }
         getPost();
     },[slug])
-    console.log(post[0].content);
     return (
         <div className={styles.singlePost}>
             <CoverTitle postCover={post[0]}/>

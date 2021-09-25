@@ -10,6 +10,7 @@ import AutoLink from '@ckeditor/ckeditor5-link/src/autolink.js';
 import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
+import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
@@ -85,6 +86,7 @@ Editor.builtinPlugins = [
 	Autosave,
 	BlockQuote,
 	Bold,
+	CKFinder,
 	CKFinderUploadAdapter,
 	CloudServices,
 	Code,

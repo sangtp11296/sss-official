@@ -64,6 +64,7 @@ function App() {
         <Route path="/write">
           {user ? <Write setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}
         </Route>
+        <Route path="/?:params"></Route>
       </Switch>
       {/* <Footer/> */}
     </Router>

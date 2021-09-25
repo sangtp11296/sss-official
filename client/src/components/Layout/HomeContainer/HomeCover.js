@@ -19,7 +19,7 @@ export default function HomeCover(props)  {
                             <div className={styles.authorText}>
                                 <em>
                                     <p>
-                                        {props.posts.photographer ? <span>Photographs by <Link to={`/?author=${props.posts.photographer}`}>{props.posts.photographer}</Link></span>:null}
+                                        {props.posts.photographer ? <span>Photographs by <Link to={`/?photographer=${props.posts.photographer}`}>{props.posts.photographer}</Link></span>:null}
                                         <br/>
                                         {props.posts.authorname ? <span>Essay by <Link to={`/?author=${props.posts.authorname}`}>{props.posts.authorname}</Link></span>:null}
                                     </p>

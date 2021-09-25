@@ -1,16 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import styles from './PostContainer.module.css'
 import ShareButton from './ShareButton/ShareButton'
 
 const PostContainer = (props) => {
+    let history = useHistory
+    const editCallBackFunction = (editData) => {
+        if(editData){
+            history.push('/')
+        }
+    }
     return (
         <div className={styles.postContainer}>
             <div className={styles.containerArticle} itemScope itemType={'http://schema.org/Article'}>
                 <div className={styles.articleWrapper}>
                     <div className={styles.articleText}>
                         <div dangerouslySetInnerHTML={{__html:props.postContent}}></div>
-                        {/* {props.postContent} */}
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id obcaecati placeat quibusdam architecto sequi corrupti impedit eaque ut soluta consectetur. Dolores mollitia vero porro vel sed. Explicabo possimus enim cum!
                         </p>
                         <figure className={styles.articlePhotoBlock}>
@@ -84,7 +89,7 @@ const PostContainer = (props) => {
                     </div>
                 </div>
             </div>
-            <ShareButton/>
+            <ShareButton editCallbackProp={editCallBackFunction}/>
         </div>
     )
 }
