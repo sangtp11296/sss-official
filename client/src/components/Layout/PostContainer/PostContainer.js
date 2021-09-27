@@ -4,9 +4,14 @@ import styles from './PostContainer.module.css'
 import ShareButton from './ShareButton/ShareButton'
 
 const PostContainer = (props) => {
-    const editCallBackFunction = (editData) => {
-        if(editData){
+    const editCallBackFunction = (editCall) => {
+        if(editCall){
             props.editCallBackProp(true)
+        }
+    }
+    const deleteCallBackFunction = (deleteCall) => {
+        if(deleteCall){
+            props.deleteCallBackProp(true)
         }
     }
     return (
@@ -88,7 +93,7 @@ const PostContainer = (props) => {
                     </div>
                 </div>
             </div>
-            <ShareButton editCallbackProp={editCallBackFunction}/>
+            <ShareButton editCallBackProp={editCallBackFunction} deleteCallBackProp={deleteCallBackFunction}/>
         </div>
     )
 }

@@ -86,6 +86,7 @@ function NavbarMenu(props) {
                 <div className={styles.account}>
                     <Link className={`${styles.avatar} ${isOpenSearch?styles.active:null}`} to='/about'></Link>
                     {user ? <ul className={styles.popup}>
+                                <li className={styles.write}><Link to='/profile'>Update Profile</Link></li>
                                 <li className={styles.write}><Link to='/write'>Write Post</Link></li>
                                 <li className={styles.logOut} onClick={handleLogout}>Log Out</li>
                             </ul> : null

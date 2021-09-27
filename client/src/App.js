@@ -12,6 +12,7 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { useContext, useState } from "react";
 import { Context } from "./context/Context";
 import Edit from "./Pages/Write/Edit";
+import Profile from "./Pages/About/Profile";
 
 function App() {
   const {user} = useContext(Context);
@@ -55,6 +56,9 @@ function App() {
         </Route>
         <Route path="/:LandingPage/:postId">
            <SinglePost setWhiteHeaderCallback={setWhiteHeaderFunction}/>
+        </Route>
+        <Route path='/profile'>
+          {user ? <Profile setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}
         </Route>
         <Route path='/login'>
           {user ? <Home setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}

@@ -16,7 +16,7 @@ function Edit(props) {
     const [categories,setCats] = useState(data.categories);
     const [desc,setDesc] = useState(data.desc);
     const [photographer,setPhotographer] = useState(data.photographer);
-    const [cover,setCover] = useState(data.coverPhoto);
+    const [cover,setCover] = useState();
     const [content,setContent] = useState(data.content);
     const {user} = useContext(Context);
     const [error,setError] = useState(false);
@@ -52,7 +52,7 @@ function Edit(props) {
         return str;
     }
 
-    const handleSubmit = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault();
         setError(false)
         const editPost = {
@@ -78,7 +78,7 @@ function Edit(props) {
             }
         }
         try{
-            const res = await axios.put('/posts', editPost);
+            const res = await axios.put(`/posts/${data._id}`, editPost);
             window.location.replace('/posts/' + res.data.slug);
         }catch(err){
             setError(true)
@@ -169,16 +169,13 @@ function Edit(props) {
                     <div className={styles.writeForm} style={{display:"flex"}}>
                         <div className={styles.imageSide}>
                             <h5>Cover Image</h5>
-                            {cover ? <div className={styles.uploadImage}>
-                                        <img className={styles.coverPhoto} alt='' src={e=>{
-                                            if(e.target.files[0]){
-                                                return('http://localhost:5000/images/covers/' + cover)
-
-                                            } else URL.createObjectURL(cover)
-                                        }} />
+                            {cover || data.coverPhoto ? <div className={styles.uploadImage}>
+                                        <img className={styles.coverPhoto} alt='' id='changeCover' src={data.coverPhoto?`http://localhost:5000/images/covers/${data.coverPhoto}`:URL.createObjectURL(cover)}/>
                                         <i className={`${styles.xIcon} fas fa-times fa-2x`} onClick={(e)=>{
                                             e.preventDefault();
-                                            setCover(null);}}/>
+                                            setCover(null);
+                                            data.coverPhoto=null;
+                                            }}/>
                                     </div> : 
                                     <div className={styles.uploadImage}>
                                         <label htmlFor='fileInput' className={styles.icon}>
@@ -200,7 +197,7 @@ function Edit(props) {
                             </div>
                         </div>
                         <div className={styles.textSide}>
-                            <form className={styles.textForm} onSubmit={handleSubmit}>
+                            <form className={styles.textForm} onSubmit={handleUpdate}>
                                 <div className={styles.textField}>
                                     <label>Title of the Post<span className={styles.textDanger}>*</span></label>
                                     <input name='title' type='text' required maxLength='500' className={styles.textInput} autoFocus={true} value={title} onChange={e=>{setTitle(e.target.value)}}/>
@@ -236,7 +233,7 @@ function Edit(props) {
                                     <CKEditor
                                         editor={ Editor }
                                         config={ editorConfiguration }
-                                        // data='null'
+                                        data={content}
                                         // onReady={ editor => {
                                         //     // You can store the "editor" and use when it is needed.
                                         //     console.log( 'Editor is ready to use!', editor );
@@ -257,7 +254,7 @@ function Edit(props) {
                                 </div>
                                 <div className={styles.submit}>
                                     <button className={styles.uploadBtn}>Preview</button>
-                                    <button className={styles.uploadBtn} type='submit'>Submit</button>
+                                    <button className={styles.uploadBtn} type='submit'>Update</button>
                                 </div>
                                 {error ? <div><h5 style={{color:'red',textAlign:'right'}}>Something went wrong! Please check again...</h5></div>:null}
                             </form>

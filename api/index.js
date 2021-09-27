@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 5
 app.use(express.json());
 app.use('/images/covers', express.static(path.join(__dirname,'/images/covers')))
 app.use('/images/gallery', express.static(path.join(__dirname,'/images/gallery')))
+app.use('/images/avatar', express.static(path.join(__dirname,'/images/avatar')))
 
 mongoose.connect(process.env.MONGO_URL)
 .then(console.log('Connected to MongoDB'))

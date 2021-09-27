@@ -1,14 +1,10 @@
 import React, { useState,useCallback,useEffect, useContext } from 'react'
 import styles from './ShareButton.module.css'
 import {Context} from '../../../../context/Context'
-import { useLocation } from 'react-router'
-import axios from 'axios'
 
 
 const ShareButton = (props) => {
     // const [edit, setEdit] = useState(false);
-    const location = useLocation();
-    const path = location.pathname.split('/')[2];
     const {user} = useContext(Context);
     const [visible, setVisible] = useState(false);
     const scrollDetect = useCallback(
@@ -51,14 +47,10 @@ const ShareButton = (props) => {
 
     function handleEdit(e){
         e.preventDefault()
-        props.editCallbackProp(true)
+        props.editCallBackProp(true)
     }
-    async function handleDelete(){
-        try{
-            await axios.delete('/posts/' + path, {
-                data:{username:user.username}})
-            window.location.replace('/')
-        }catch (err){}
+    function handleDelete(){
+        props.deleteCallBackProp(true)
     }
     
     return (
