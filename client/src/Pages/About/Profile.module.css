@@ -18,7 +18,7 @@
     position: relative;
 }
 .cover{
-    height: 50vh;
+    height: 40vh;
     width: 100%;
 }
 .coverPhoto{
@@ -27,7 +27,6 @@
     background-size: 100% auto;
     background-position: 50%;
     object-fit: cover;
-    
 }
 .avatar{
     position: absolute;
@@ -41,36 +40,126 @@
     object-fit: cover;
     box-shadow: 0px 5px 5px rgb(175, 175, 175);
 }
-.textField:first-child{
-    margin-top:0;
-    margin-bottom: 1rem;
-    height: auto;
+.editIcon{
+    position: absolute;
+    left: 660px;
+    top: 440px;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: large;
+    background-color: lightgray;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.editIcon.editCover{
+    position: absolute;
+    top: 10px;
+    left: 1150px !important;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    font-size: large;
+    background-color: lightgray;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.editIcon:hover{
+    background-color: white;
+}
+.sideInfo{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+    padding: 0 300px;
+}
+.sideInfo span{
+    font-weight: 300;
+    font-size: 16px;
+}
+.textForm{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: space-around;
+}
+.textForm h3{
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+.infoSide{
+    width: 400px;
+    margin-left: 20px;
+}
+.socialSide{
+    width: 400px;
 }
 .textField{
-    margin-top: 2rem;
     margin-bottom: 1rem;
 }
 .textField label{
     display: inline-block;
     font-size: 14px;
     letter-spacing: .09px;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.2;
     margin-bottom: 1rem;
+    width: 100%;
 }
 .textDanger{
     color: red;
 }
 .textInput{
-    border: .5px solid gray;
-    border-radius: 8px;
-    padding: 9.5px 16px;
+    border-bottom: .5px solid gray;
+    padding: 5px ;
     width: 100%;
     font-family: 'Poppins';
     font-size: 13px;
     font-weight: 300;
-    text-transform: capitalize;
 }   
 .textInput:focus{
     outline: none;
+}
+.submit{
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    justify-content: flex-end;
+    margin-right: 100px;
+}
+
+.submit .uploadBtn{
+    border: 1px solid var(--gray-dark);
+    border-radius: 7px;
+    background-color: white;
+    color: var(--gray-dark);
+    margin-left: 20px;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 0;
+    padding: 7px 25px;
+    cursor: pointer;
+    transition: all .15s linear;
+}
+.submit .uploadBtn:last-child{
+    background-color: var(--gray-dark);
+    color: white;
+    border: 1px solid transparent;
+}
+.submit .uploadBtn:last-child:hover{
+    background-color: var(--main-brand-color-theme);
+    color: white;
+}
+.submit .uploadBtn:hover {
+    color: var(--main-brand-color-theme);
 }

@@ -20,7 +20,6 @@ export default function Register(props) {
         try{
             if(password1 === password2) {
                 setPassword(password1)
-                console.log(password2)
                 const res = await axios.post('/auth/register',{
                     username,
                     authorname,
