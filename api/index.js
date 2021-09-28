@@ -60,7 +60,7 @@ app.post('/api/uploads', uploadPost.single('upload'), (req,res) => {
     });
 })
 const uploadProfile = multer({storage:profile});
-app.post('/api/upload/profile', uploadPost.single('file'), (req,res) => {
+app.post('/api/upload/profile', uploadProfile.single('file'), (req,res) => {
     res.status(200).json("Profile avatar and cover has been uploaded!");
 })
 app.use('/api/auth', authRoute);

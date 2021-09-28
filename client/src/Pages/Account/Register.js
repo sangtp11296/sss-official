@@ -8,8 +8,7 @@ export default function Register(props) {
     const [authorname,setAuthorname] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    const [password1,setPassword1] = useState('');
-    const [password2,setPassword2] = useState('');
+    const [passcheck,setPassCheck] = useState('');
     const [passerr,setPassErr] = useState(false);
     const [error,setError] = useState(false);
 
@@ -18,8 +17,7 @@ export default function Register(props) {
         setError(false);
         setPassErr(false);
         try{
-            if(password1 === password2) {
-                setPassword(password1)
+            if(password === passcheck) {
                 const res = await axios.post('/auth/register',{
                     username,
                     authorname,
@@ -27,15 +25,15 @@ export default function Register(props) {
                     password
                 });
                 res.data && window.location.replace('/login');
-                console.log(res.data)
             } else{
-                setPassErr(true);
-            }
-        } catch (err){
+                setPassErr(true);}
+        }catch (err){
             setError(true);
         }
-        
     }
+
+        
+        
     return (
         <div className={styles.register}>
             <form className={styles.registerForm} onSubmit={handleSubmit}>
@@ -47,9 +45,9 @@ export default function Register(props) {
                 <label>Email<span className={styles.red}>*</span></label>
                 <input type='text' placeholder='Enter your email...' className={styles.registerInput} onChange={e=>setEmail(e.target.value)}></input>
                 <label>Password<span className={styles.red}>*</span>{passerr?<span className={styles.red}> Password not the same!</span>:null}</label>
-                <input type='password' className={styles.registerInput} onChange={e=>setPassword1(e.target.value)}></input>
+                <input type='password' className={styles.registerInput} onChange={e=>setPassword(e.target.value)}></input>
                 <label>Confirm Your Password<span className={styles.red}>*</span></label>
-                <input type='password' className={styles.registerInput} onChange={e=>setPassword2(e.target.value)}></input>
+                <input type='password' className={styles.registerInput} onChange={e=>setPassCheck(e.target.value)}></input>
                 <button className={styles.registerBtn}>Register</button>
                 <h5>Already haved account? Let's Login</h5>
                 <Link to='/login'>
@@ -58,4 +56,5 @@ export default function Register(props) {
             </form>
         </div>
     )
+
 }

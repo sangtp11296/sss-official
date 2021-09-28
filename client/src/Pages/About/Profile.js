@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../../context/Context';
 import styles from './Profile.module.css'
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 export default function Profile() {
     const [authorname,setAuthorname] = useState('');
@@ -11,9 +12,10 @@ export default function Profile() {
     const [passErr,setPassErr] = useState(false);
     const [avatar,setAvatar] = useState(false);
     const [cover,setCover] = useState(false);
-    const [password1,setPassword1] = useState('');
-    const [password2,setPassword2] = useState('');
-    const {user} = useContext(Context)
+    const [passcheck,setPassCheck] = useState('');
+    
+    const {user,dispatch} = useContext(Context)
+    const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,8 +23,7 @@ export default function Profile() {
         setError(false);
         setPassErr(false);
 
-        if(password1 === password2) {
-            setPassword(password1)
+        if(password === passcheck) {
             const updatedUser = {
                 userId: user._id,
                 username:user.username,
@@ -31,30 +32,32 @@ export default function Profile() {
                 password
             }
             if (cover){
-                const data = new FormData();
+                const dataCover = new FormData();
                 const covername = Date.now()+ '_' + cover.name;
-                data.append('name',covername);
-                data.append('file',cover);
+                dataCover.append('name',covername);
+                dataCover.append('file',cover);
                 updatedUser.profileCover = covername;
                 try{
-                    await axios.post('/upload/profile', data)
+                    await axios.post('/upload/profile', dataCover)
                 }catch(err){
                 }
             }
             if (avatar){
-                const data = new FormData();
+                const dataAvatar = new FormData();
                 const avatarname = Date.now()+ '_' + avatar.name;
-                data.append('name',avatarname);
-                data.append('file',avatar);
+                dataAvatar.append('name',avatarname);
+                dataAvatar.append('file',avatar);
                 updatedUser.profileAvatar = avatarname;
                 try{
-                    await axios.post('/upload/profile', data)
+                    await axios.post('/upload/profile', dataAvatar)
                 }catch(err){
                 }
             }
             try{
                 await axios.put(`/users/${user._id}`, updatedUser);
-                window.location.reload();
+                dispatch({type:"LOGOUT"})
+                history.push('/login')
+                // window.location.reload();
             }catch(err){}
         } else setPassErr(true);
     }
@@ -62,17 +65,40 @@ export default function Profile() {
         <div className={styles.profile}>
             <div className={styles.mainInfo}>
                 <div className={styles.cover}>
-                    <div className={styles.coverPhoto} alt='' style={{backgroundImage:`url(http://localhost:5000/images/covers/1632111556548_DSCF0639.jpg)`}}>
+                {cover || user.profileCover ? 
+                    <>
+                        <img className={styles.coverPhoto} alt='' src={user.profileCover?`http://localhost:5000/images/profile/${user.profileCover}`:URL.createObjectURL(cover)}/>
                         <label htmlFor='cover'>
                             <i className={`${styles.editIcon} ${styles.editCover} fas fa-pencil-alt`}></i>
                         </label>
-                    </div>
-                    <img alt='' className={styles.avatar} src='http://localhost:5000/images/profile/217629690_365261008312082_2296721951295676000_n.jpg'></img>
-                    <label htmlFor='avatar'>
-                        <i className={`${styles.editIcon} fas fa-pencil-alt`}></i>
-                    </label>
-                    <input type='file' id='avatar' style={{display:'none'}} onChange={e=>{setAvatar(e.target.files[0])}}/>
-                    <input type='file' id='cover' style={{display:'none'}} onChange={e=>{setCover(e.target.files[0])}}/>
+                        <input type='file' id='cover' style={{display:'none'}} onChange={e=>{setCover(e.target.files[0]); user.profileCover=null}}/>
+                    </>
+                    :
+                    <>
+                        <img className={styles.coverPhoto} alt='' style={{backgroundImage:`url(http://localhost:5000/images/covers/1632111556548_DSCF0639.jpg)`}}/>
+                        <label htmlFor='cover'>
+                            <i className={`${styles.editIcon} ${styles.editCover} fas fa-pencil-alt`}></i>
+                        </label>
+                        <input type='file' id='cover' style={{display:'none'}} onChange={e=>{setCover(e.target.files[0])}}/>
+                    </>
+                    }
+                    {avatar || user.profileAvatar ? 
+                        <>
+                            <img alt='' className={styles.avatar} src={user.profileAvatar?`http://localhost:5000/images/profile/${user.profileAvatar}`:URL.createObjectURL(avatar)}/>
+                            <label htmlFor='avatar'>
+                                <i className={`${styles.editIcon} fas fa-pencil-alt`}></i>
+                            </label>
+                            <input type='file' id='avatar' style={{display:'none'}} onChange={e=>{setAvatar(e.target.files[0]); user.profileAvatar=null}}/>
+                        </>
+                        : 
+                        <>
+                            <img alt='' className={styles.avatar} style={{backgroundColor:"white"}}/>
+                            <label htmlFor='avatar'>
+                                <i className={`${styles.editIcon} fas fa-pencil-alt`}></i>
+                            </label>
+                            <input type='file' id='avatar' style={{display:'none'}} onChange={e=>{setAvatar(e.target.files[0])}}/>
+                        </>}
+                    
                 </div>
                 <div className={styles.sideInfo}>
                     <h3>1000 <span>Follower</span></h3>
@@ -94,11 +120,11 @@ export default function Profile() {
                     </div>
                     <div className={styles.textField}>
                         <label>Password<span className={styles.textDanger}>*</span></label>
-                        <input name='password' type='password' required maxLength='500' className={styles.textInput} onChange={e=>{setPassword1(e.target.value)}}/>
+                        <input name='password' type='password' required maxLength='500' className={styles.textInput} onChange={e=>{setPassword(e.target.value)}}/>
                     </div>
                     <div className={styles.textField}>
                         <label>Confirm Password<span className={styles.textDanger}>*</span></label>
-                        <input name='password' type='password' required maxLength='500' className={styles.textInput} onChange={e=>{setPassword2(e.target.value)}}/>
+                        <input name='password' type='password' required maxLength='500' className={styles.textInput} onChange={e=>{setPassCheck(e.target.value)}}/>
                     </div>
                     {passErr?<h5>Wrong Confirmation</h5>:null}
                 </div>
