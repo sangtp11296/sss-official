@@ -13,6 +13,7 @@ box-sizing: border-box;
 }
 :root{
   --main-brand-color-theme: #2585fd;
+  --background-color: rgba(213, 236, 255, 0.479);
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -129,7 +130,7 @@ html{
 }
 body{
   overflow-x: hidden;
-  background-color: white;
+  background-color: var(--background-color);
   font-size: 13px;
   line-height: 1.5;
   font-family: 'Poppins';

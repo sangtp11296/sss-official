@@ -25,7 +25,7 @@ function App() {
     <Router>
       
       <ScrollToTop/>
-      <Header whiteHeader={whiteheader}/>
+      {/* <Header whiteHeader={whiteheader}/> */}
       <Switch>
         <Route path="/" exact={true}>
           <Home setWhiteHeaderCallback={setWhiteHeaderFunction}/>
@@ -52,7 +52,7 @@ function App() {
           <LandingPage section='life'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/about">
-          <About />
+          <About setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/:LandingPage/:postId">
            <SinglePost setWhiteHeaderCallback={setWhiteHeaderFunction}/>
