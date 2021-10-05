@@ -21,6 +21,7 @@ function App() {
   const setWhiteHeaderFunction = (childData) =>{
       setTimeout(()=>setWhiteHeader(childData))
   }
+  
   return (
     <Router>
       <ScrollToTop/>
