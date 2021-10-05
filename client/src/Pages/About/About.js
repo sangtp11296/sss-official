@@ -69,7 +69,7 @@ export default function About(props) {
                 <div className={styles.infoWrapper}>
                     <div className={styles.infoBlock}>
                         <h5>About Me</h5>
-                        <h2>HI, I’M GRAG BARETT</h2>
+                        <h2>HI, I’M Sang Tran Phuc</h2>
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accus antium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt.</p>
                         <blockquote>Typography is the work of typesetters, typographers, graphic designers, art directors, manga artists, comic book artists, graffiti artists.</blockquote>
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusa ntium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta suntexpli cabo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta.</p>

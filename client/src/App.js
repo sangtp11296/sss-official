@@ -23,50 +23,60 @@ function App() {
   }
   return (
     <Router>
-      
       <ScrollToTop/>
-      {/* <Header whiteHeader={whiteheader}/> */}
       <Switch>
         <Route path="/" exact={true}>
+          <Header whiteHeader={whiteheader}/>
           <Home setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/photography">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='photography' setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/explore">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='explore'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/photographers">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='photographers'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/challenge">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='challenge'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/book">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='book'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/music">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='music'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/life">
+          <Header whiteHeader={whiteheader}/>
           <LandingPage section='life'setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/about">
           <About setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/:LandingPage/:postId">
+          <Header whiteHeader={whiteheader}/>
            <SinglePost setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
-        <Route path='/profile'>
+          <Route path='/profile'>
           {user ? <Profile setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}
         </Route>
         <Route path='/login'>
+          <Header whiteHeader={whiteheader}/>
           {user ? <Home setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}
         </Route>
         <Route path='/register'>
+          <Header whiteHeader={whiteheader}/>
           <Register setWhiteHeaderCallback={setWhiteHeaderFunction}/>
         </Route>
         <Route path="/write">
+          <Header whiteHeader={whiteheader}/>
           {user ? <Write setWhiteHeaderCallback={setWhiteHeaderFunction}/> : <Login setWhiteHeaderCallback={setWhiteHeaderFunction}/>}
         </Route>
         <Route path="/edit" component={Edit}/>
