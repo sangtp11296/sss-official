@@ -50,11 +50,11 @@ export default function Profile() {
                 updatedUser.profileAvatar = avatarname;
                 try{
                     await axios.post('/upload/profile', dataAvatar)
+                    console.log(dataAvatar)
                 }catch(err){
                 }
             }
             try{
-                console.log(updatedUser)
                 await axios.put(`/users/${user._id}`, updatedUser);
                 dispatch({type:"LOGOUT"})
                 history.push('/login')
