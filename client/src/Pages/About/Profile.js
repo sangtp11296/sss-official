@@ -54,6 +54,7 @@ export default function Profile() {
                 }
             }
             try{
+                console.log(updatedUser)
                 await axios.put(`/users/${user._id}`, updatedUser);
                 dispatch({type:"LOGOUT"})
                 history.push('/login')
@@ -112,11 +113,11 @@ export default function Profile() {
                 <div className={styles.infoSide}>
                     <div className={styles.textField}>
                         <label>Full Name<span className={styles.textDanger}>*</span></label>
-                        <input name='fullName' type='text' required maxLength='500' className={styles.textInput} value='Sang Tran Phuc' onChange={e=>{setAuthorname(e.target.value)}}/>
+                        <input name='fullName' type='text' required maxLength='500' className={styles.textInput}  onChange={e=>{setAuthorname(e.target.value)}}/>
                     </div>
                     <div className={styles.textField}>
                         <label>Email<span className={styles.textDanger}>*</span></label>
-                        <input name='email' type='text' required maxLength='500' className={styles.textInput} value='sang.tp.11296@gmail.com' onChange={e=>{setEmail(e.target.value)}}/>
+                        <input name='email' type='text' required maxLength='500' className={styles.textInput}  onChange={e=>{setEmail(e.target.value)}}/>
                     </div>
                     <div className={styles.textField}>
                         <label>Password<span className={styles.textDanger}>*</span></label>

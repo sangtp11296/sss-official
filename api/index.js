@@ -69,16 +69,6 @@ const profile = multer.diskStorage({
 
 const uploadCover = multer({storage:storage});
 app.post('/api/upload', uploadCover.single('file'), (req,res) => {
-    // const uploadCover = drive.files.create({
-    //     requestBody:{
-    //         name: req.body.name,
-    //         mimeType: 'image/jpg'
-    //     },
-    //     media:{
-    //         mimeType: 'image/jpg',
-    //         body: fs.createWriteStream(req)
-    //     }
-    // })
     res.status(200).json("Cover has been uploaded!");
 })
 const uploadPost = multer({storage:gallery});
@@ -88,24 +78,27 @@ app.post('/api/uploads', uploadPost.single('upload'), (req,res) => {
         url: `http://localhost:5000/images/gallery/${req.file.originalname}`
     });
 })
-// const uploadProfile = multer({storage:profile});
-// app.post('/api/upload/profile', uploadProfile.single('file'), (req,res) => {
-//     res.status(200).json("Profile avatar and cover has been uploaded!");
-// })
-app.post('/api/upload/profile', (req,res) => {
-    const uploadProfile = drive.files.create({
-        requestBody:{
-            name: req.body.name,
-            mimeType: 'image/jpg'
-        },
-        media:{
-            mimeType: 'image/jpg',
-            body: fs.createWriteStream(req)
-        }
-    })
-    console.log(req)
+const uploadProfile = multer({storage:profile});
+app.post('/api/upload/profile', uploadProfile.single('file'), (req,res) => {
+    console.log(req.body)
     res.status(200).json("Profile avatar and cover has been uploaded!");
 })
+
+
+// app.post('/api/upload/profile', (req,res) => {
+//     // const uploadProfile = drive.files.create({
+//     //     requestBody:{
+//     //         name: req.body.name,
+//     //         mimeType: 'image/jpg'
+//     //     },
+//     //     media:{
+//     //         mimeType: 'image/jpg',
+//     //         body: fs.createWriteStream(req)
+//     //     }
+//     // })
+//     console.log(req)
+//     res.status(200).json("Profile avatar and cover has been uploaded!");
+// })
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);
 app.use('/api/posts', postRoute);
