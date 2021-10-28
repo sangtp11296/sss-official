@@ -1,3 +1,4 @@
+import axios from 'axios';
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
@@ -11,6 +12,8 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const { google } = require('googleapis');
+const toStream = require('buffer-to-stream')
+
 
 dotenv.config();
 
@@ -24,7 +27,7 @@ app.use('/images/profile', express.static(path.join(__dirname,'/images/profile')
 const CLIENT_ID = '968044425042-vp8o30f09jqojgl93gt6f1qoup8eltf9.apps.googleusercontent.com';
 const CLIENT_SECRET = 'ZvhjtwPvtqnb_4o3bTxwaTda';
 const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04Go3ZgWi4qeiCgYIARAAGAQSNwF-L9IrAO7DB3REaJK3Sb76f-0Z0mm6KeO0uX1f8NVAU9_bkWLjmafQm29tRu3JlnnLGX8IyRM';
+const REFRESH_TOKEN = '1//04-Q-jQzDNaChCgYIARAAGAQSNwF-L9IrLKUPBSuHRjNfRIoePNXdW_bHcrM1cPpg2wbz9eUw6XQ9AQuYfTDkdT-Z-0xAwpcwLCc';
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
@@ -84,19 +87,25 @@ app.post('/api/uploads', uploadPost.single('upload'), (req,res) => {
 //     res.status(200).json("Profile avatar and cover has been uploaded!");
 // })
 const uploadProfile = multer();
-app.post('/api/upload/profile', uploadProfile.single('file'), (req,res) => {
-    const uploadProfile = drive.files.create({
-        requestBody:{
-            name: req.body.name,
-            mimeType: 'image/jpg'
-        },
-        media:{
-            mimeType: 'image/jpg',
-            body: fs.createWriteStream(req.body)
-        }
-    })
-    console.log(req.body)
-    res.status(200).json("Profile avatar and cover has been uploaded!");
+app.post('/api/upload/profile', uploadProfile.single('file'), async (req,res) => {
+    try{
+        const uploadProfile = await drive.files.create({
+            requestBody:{
+                name: req.body.name,
+                parents: ['1dec_Y6zdEWryCfBWhIpxYN7qJxrelolg'],
+                mimeType: 'image/jpg'
+            },
+            media:{
+                mimeType: 'image/jpg',
+                body: toStream(Buffer.from(req.file.buffer))
+            }
+        })
+        res.status(200).json("Profile avatar and cover has been uploaded!");
+        const profileAvatar = uploadProfile.data.id;
+        await axios.put(`/users/${req.body.userID}`, profileAvatar);
+    }catch (err){
+        console.log(err)
+    }
 })
 
 app.use('/api/auth', authRoute);
