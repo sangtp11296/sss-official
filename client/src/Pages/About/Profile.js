@@ -47,10 +47,9 @@ export default function Profile() {
                 const avatarname = Date.now()+ '_' + avatar.name;
                 dataAvatar.append('name',avatarname);
                 dataAvatar.append('file',avatar);
-                updatedUser.profileAvatar = avatarname;
+                dataAvatar.append('userID',user._id)
                 try{
                     await axios.post('/upload/profile', dataAvatar)
-                    console.log(dataAvatar)
                 }catch(err){
                 }
             }
@@ -85,7 +84,9 @@ export default function Profile() {
                     }
                     {avatar || user.profileAvatar ? 
                         <>
-                            <img alt='' className={styles.avatar} src={user.profileAvatar?`http://localhost:5000/images/profile/${user.profileAvatar}`:URL.createObjectURL(avatar)}/>
+                            {/* <img alt='' className={styles.avatar} src={user.profileAvatar?`http://localhost:5000/images/profile/${user.profileAvatar}`:URL.createObjectURL(avatar)}/> */}
+                            <img alt='' className={styles.avatar} src={user.profileAvatar? `https://drive.google.com/uc?id=16x_FIHe6avFwbikF8BE6VRYLHGj1boAL`:URL.createObjectURL(avatar)}/>
+                            
                             <label htmlFor='avatar'>
                                 <i className={`${styles.editIcon} fas fa-pencil-alt`}></i>
                             </label>
