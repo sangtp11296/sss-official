@@ -1,4 +1,3 @@
-import axios from 'axios';
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
@@ -9,10 +8,11 @@ const postRoute = require('./routes/posts');
 const categoryRoute = require('./routes/categories');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const { google } = require('googleapis');
 const toStream = require('buffer-to-stream')
+const User = require('./models/User');
 
 
 dotenv.config();
@@ -61,14 +61,6 @@ const gallery = multer.diskStorage({
         cb(null,file.originalname);
     }
 })
-const profile = multer.diskStorage({
-    destination:(req,file,cb) => {
-        cb(null,'images/profile');
-    },
-    filename:(req,file,cb) => {
-        cb(null,req.body.name);
-    }
-})
 
 const uploadCover = multer({storage:storage});
 app.post('/api/upload', uploadCover.single('file'), (req,res) => {
@@ -81,32 +73,53 @@ app.post('/api/uploads', uploadPost.single('upload'), (req,res) => {
         url: `http://localhost:5000/images/gallery/${req.file.originalname}`
     });
 })
-// const uploadProfile = multer({storage:profile});
-// app.post('/api/upload/profile', uploadProfile.single('file'), (req,res) => {
-//     console.log(req.body)
-//     res.status(200).json("Profile avatar and cover has been uploaded!");
-// })
+
 const uploadProfile = multer();
 app.post('/api/upload/profile', uploadProfile.single('file'), async (req,res) => {
-    try{
-        const uploadProfile = await drive.files.create({
-            requestBody:{
-                name: req.body.name,
-                parents: ['1dec_Y6zdEWryCfBWhIpxYN7qJxrelolg'],
-                mimeType: 'image/jpg'
-            },
-            media:{
-                mimeType: 'image/jpg',
-                body: toStream(Buffer.from(req.file.buffer))
-            }
-        })
-        res.status(200).json("Profile avatar and cover has been uploaded!");
-        const profileAvatar = uploadProfile.data.id;
-        await axios.put(`/users/${req.body.userID}`, profileAvatar);
-    }catch (err){
-        console.log(err)
+    if(req.body.type === 'avatar'){
+        try{
+            const avatar = await drive.files.create({
+                requestBody:{
+                    name: req.body.name,
+                    parents: ['1dec_Y6zdEWryCfBWhIpxYN7qJxrelolg'],
+                    mimeType: 'image/jpg'
+                },
+                media:{
+                    mimeType: 'image/jpg',
+                    body: toStream(Buffer.from(req.file.buffer))
+                }
+            })
+            res.status(200).json("Profile avatar and cover has been uploaded!");
+            console.log(avatar.data.id)
+            const updatedUser = await User.findByIdAndUpdate(req.body.userID,{profileAvatar:avatar.data.id},{new:true})
+            console.log( await User.findById(req.body.userID))
+        }catch (err){
+            console.log(err)
+        }
+    }
+    if(req.body.type === 'cover'){
+        try{
+            const cover = await drive.files.create({
+                requestBody:{
+                    name: req.body.name,
+                    parents: ['10OOW-nfGwTqsblbr38WV_SMlUeZJ6EqJ'],
+                    mimeType: 'image/jpg'
+                },
+                media:{
+                    mimeType: 'image/jpg',
+                    body: toStream(Buffer.from(req.file.buffer))
+                }
+            })
+            res.status(200).json("Profile avatar and cover has been uploaded!");
+            console.log(cover.data.id)
+            const updatedUser = await User.findByIdAndUpdate(req.body.userID,{profileCover:cover.data.id},{new:true})
+            console.log( await User.findById(req.body.userID))
+        }catch (err){
+            console.log(err)
+        }
     }
 })
+
 
 app.use('/api/auth', authRoute);
 app.use('/api/users', userRoute);

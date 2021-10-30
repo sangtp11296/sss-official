@@ -34,9 +34,10 @@ export default function Profile() {
             if (cover){
                 const dataCover = new FormData();
                 const covername = Date.now()+ '_' + cover.name;
+                dataCover.append('type','cover')
                 dataCover.append('name',covername);
                 dataCover.append('file',cover);
-                updatedUser.profileCover = covername;
+                dataCover.append('userID',user._id)
                 try{
                     await axios.post('/upload/profile', dataCover)
                 }catch(err){
@@ -45,6 +46,7 @@ export default function Profile() {
             if (avatar){
                 const dataAvatar = new FormData();
                 const avatarname = Date.now()+ '_' + avatar.name;
+                dataAvatar.append('type','avatar')
                 dataAvatar.append('name',avatarname);
                 dataAvatar.append('file',avatar);
                 dataAvatar.append('userID',user._id)
@@ -67,7 +69,7 @@ export default function Profile() {
                 <div className={styles.cover}>
                 {cover || user.profileCover ? 
                     <>
-                        <img className={styles.coverPhoto} alt='' src={user.profileCover?`http://localhost:5000/images/profile/${user.profileCover}`:URL.createObjectURL(cover)}/>
+                        <img className={styles.coverPhoto} alt='' src={user.profileCover?`https://drive.google.com/uc?id=${user.profileCover}`:URL.createObjectURL(cover)}/>
                         <label htmlFor='cover'>
                             <i className={`${styles.editIcon} ${styles.editCover} fas fa-pencil-alt`}></i>
                         </label>
@@ -84,9 +86,7 @@ export default function Profile() {
                     }
                     {avatar || user.profileAvatar ? 
                         <>
-                            {/* <img alt='' className={styles.avatar} src={user.profileAvatar?`http://localhost:5000/images/profile/${user.profileAvatar}`:URL.createObjectURL(avatar)}/> */}
-                            <img alt='' className={styles.avatar} src={user.profileAvatar? `https://drive.google.com/uc?id=16x_FIHe6avFwbikF8BE6VRYLHGj1boAL`:URL.createObjectURL(avatar)}/>
-                            
+                            <img alt='' className={styles.avatar} src={user.profileAvatar? `https://drive.google.com/uc?id=${user.profileAvatar}`:URL.createObjectURL(avatar)}/>
                             <label htmlFor='avatar'>
                                 <i className={`${styles.editIcon} fas fa-pencil-alt`}></i>
                             </label>
