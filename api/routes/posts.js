@@ -1,17 +1,42 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const Post = require('../models/Post');
+const googleModule = require('../GoogleDrive')
+const {google} = require('googleapis')
 
+const drive = google.drive({
+    version: 'v3',
+    auth: googleModule
+})
 //Create New Post
 router.post("/", async (req,res) => {
     const newPost = new Post(req.body);
     try{
         const savedPost = await newPost.save();
+        
+        const postFolder = await drive.files.create({
+            requestBody:{
+                name: req.body.title,
+                parents: ['1sjoVjpLYSvIpS9wliIzHPpTJEa5Ddl5J'],
+                mimeType: 'application/vnd.google-apps.folder'
+            },
+            fields: 'id'
+        })
+        console.log(postFolder.data.id)
+        const getPhotos = await drive.files.list({
+            q: "'1JuzRfnC6FDhjezmcKCQeyMow1DD7oDzc' in parents",
+            fields: 'nextPageToken, files(id, name, parents, mimeType, modifiedTime)',
+            spaces: 'drive',
+            pageToken: null
+        });
+        console.log(getPhotos)
+        // const photoIDs = getPhotos.get('id',[]);
+        // console.log(photoIDs)
         res.status(200).json(savedPost);
     }catch(err){
         res.status(500).json(err);
+        console.log(err)
     }
-    
 })
 
 //Update Post

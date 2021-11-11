@@ -34,24 +34,24 @@ export default function Profile() {
             if (cover){
                 const dataCover = new FormData();
                 const covername = Date.now()+ '_' + cover.name;
-                dataCover.append('type','cover')
+                dataCover.append('type','profileCover')
                 dataCover.append('name',covername);
                 dataCover.append('file',cover);
                 dataCover.append('userID',user._id)
                 try{
-                    await axios.post('/upload/profile', dataCover)
+                    await axios.post('/upload', dataCover)
                 }catch(err){
                 }
             }
             if (avatar){
                 const dataAvatar = new FormData();
                 const avatarname = Date.now()+ '_' + avatar.name;
-                dataAvatar.append('type','avatar')
+                dataAvatar.append('type','profileAvatar')
                 dataAvatar.append('name',avatarname);
                 dataAvatar.append('file',avatar);
                 dataAvatar.append('userID',user._id)
                 try{
-                    await axios.post('/upload/profile', dataAvatar)
+                    await axios.post('/upload', dataAvatar)
                 }catch(err){
                 }
             }

@@ -72,9 +72,11 @@ export default function Write(props) {
         }
         if (cover){
             const data = new FormData();
-            const covername = Date.now()+ '_' + cover.name;
+            const covername = Date.now()+ '_' + toSlug(title);
+            data.append('type','postCover')
             data.append('name',covername);
             data.append('file',cover);
+            data.append('userID',user._id);
             newPost.coverPhoto = covername;
             try{
                 await axios.post('/upload', data)
@@ -87,38 +89,7 @@ export default function Write(props) {
         }catch(err){
             setError(true)
         }
-        
     }
-    // const modules = {
-    //     toolbar: [
-    //       [{ 'header': [1, 2, false] }],
-    //       ['bold', 'italic', 'underline','strike', 'blockquote'],
-    //       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-    //       ['link', 'image'],
-    //       ['clean']
-    //     ],
-    //   }
-
-    // const modules = {
-    //     // syntax: true,
-    //     toolbar: [
-    //       [{ 'font': [] }, { 'size': [] }],
-    //       [ 'bold', 'italic', 'underline', 'strike' ],
-    //       [{ 'color': [] }, { 'background': [] }],
-    //       [{ 'script': 'super' }, { 'script': 'sub' }],
-    //       [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block' ],
-    //       [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
-    //       [ 'direction', { 'align': [] }],
-    //       [ 'link', 'image', 'video', 'formula' ],
-    //       [ 'clean' ]
-    //     ]
-    // }
-    // const formats = [
-    //     'header',
-    //     'bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block', 'color', 'background', 'script', 'size', 'font',
-    //     'list', 'bullet', 'indent', 'direction', 'align',
-    //     'link', 'image', 'video', 'fomula', 'clean'
-    //   ]
 
     const editorConfiguration = {
         removePlugins: ['Title','Markdown', 'Watchdog'],

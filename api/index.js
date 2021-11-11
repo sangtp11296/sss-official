@@ -7,12 +7,12 @@ const userRoute = require('./routes/users');
 const postRoute = require('./routes/posts');
 const categoryRoute = require('./routes/categories');
 const multer = require('multer');
-const path = require('path');
-const axios = require('axios');
 const bodyParser = require('body-parser');
+const googleModule = require('./GoogleDrive')
 const { google } = require('googleapis');
 const toStream = require('buffer-to-stream')
 const User = require('./models/User');
+const Post = require('./models/Post');
 
 
 dotenv.config();
@@ -20,62 +20,62 @@ dotenv.config();
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 app.use(express.json());
-app.use('/images/covers', express.static(path.join(__dirname,'/images/covers')))
-app.use('/images/gallery', express.static(path.join(__dirname,'/images/gallery')))
-app.use('/images/profile', express.static(path.join(__dirname,'/images/profile')))
-
-const CLIENT_ID = '968044425042-vp8o30f09jqojgl93gt6f1qoup8eltf9.apps.googleusercontent.com';
-const CLIENT_SECRET = 'ZvhjtwPvtqnb_4o3bTxwaTda';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04-Q-jQzDNaChCgYIARAAGAQSNwF-L9IrLKUPBSuHRjNfRIoePNXdW_bHcrM1cPpg2wbz9eUw6XQ9AQuYfTDkdT-Z-0xAwpcwLCc';
-
-const oauth2Client = new google.auth.OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-    )
-oauth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
+console.log(googleModule())
 
 const drive = google.drive({
     version: 'v3',
-    auth: oauth2Client
+    auth: googleModule
 })
-
 mongoose.connect(process.env.MONGO_URL)
 .then(console.log('Connected to MongoDB'))
 .catch((err) => console.log(err));
 
-const storage = multer.diskStorage({
-    destination:(req,file,cb) => {
-        cb(null,'images/covers');
-    },
-    filename:(req,file,cb) => {
-        cb(null,req.body.name);
-    }
-})
-const gallery = multer.diskStorage({
-    destination:(req,file,cb) => {
-        cb(null,'images/gallery');
-    },
-    filename:(req,file,cb) => {
-        cb(null,file.originalname);
+
+// const uploadPost = multer({storage:gallery});
+const uploadPost = multer();
+app.post('/api/uploads', uploadPost.single('upload'), async (req,res) => {
+    try{
+        const postPhoto = await drive.files.create({
+            requestBody:{
+                name: Date.now() + '_' + req.file.originalname,
+                parents: ['1IPqKaIIsBA99UWnLVkyNp71xl02ZuG0y'],
+                mimeType: 'image/jpg'
+            },
+            media:{
+                mimeType: 'image/jpg',
+                body: toStream(Buffer.from(req.file.buffer))
+            }
+        })
+        res.status(200).json({
+            uploaded: true,
+            url: `https://drive.google.com/uc?id=${postPhoto.data.id}`
+        });
+    }catch (err){
+        console.log(err)
     }
 })
 
-const uploadCover = multer({storage:storage});
-app.post('/api/upload', uploadCover.single('file'), (req,res) => {
-    res.status(200).json("Cover has been uploaded!");
-})
-const uploadPost = multer({storage:gallery});
-app.post('/api/uploads', uploadPost.single('upload'), (req,res) => {
-    res.status(200).json({
-        uploaded: true,
-        url: `http://localhost:5000/images/gallery/${req.file.originalname}`
-    });
-})
-
-const uploadProfile = multer();
-app.post('/api/upload/profile', uploadProfile.single('file'), async (req,res) => {
+const uploadImage = multer();
+app.post('/api/upload', uploadImage.single('file'), async (req,res) => {
+    if(req.body.type === 'postCover'){
+        try{
+            const coverPost = await drive.files.create({
+                requestBody:{
+                    name: req.body.name,
+                    parents: ['1JuzRfnC6FDhjezmcKCQeyMow1DD7oDzc'],
+                    mimeType: 'image/jpg'
+                },
+                media:{
+                    mimeType: 'image/jpg',
+                    body: toStream(Buffer.from(req.file.buffer))
+                }
+            })
+            res.status(200).json("Post cover has been uploaded!");
+            const updatedPost = await Post.findByIdAndUpdate(req.body.userID,{coverPhoto:coverPost.data.id},{new:true})
+        }catch (err){
+            console.log(err)
+        }
+    }
     if(req.body.type === 'avatar'){
         try{
             const avatar = await drive.files.create({
@@ -90,9 +90,7 @@ app.post('/api/upload/profile', uploadProfile.single('file'), async (req,res) =>
                 }
             })
             res.status(200).json("Profile avatar and cover has been uploaded!");
-            console.log(avatar.data.id)
             const updatedUser = await User.findByIdAndUpdate(req.body.userID,{profileAvatar:avatar.data.id},{new:true})
-            console.log( await User.findById(req.body.userID))
         }catch (err){
             console.log(err)
         }
@@ -111,9 +109,7 @@ app.post('/api/upload/profile', uploadProfile.single('file'), async (req,res) =>
                 }
             })
             res.status(200).json("Profile avatar and cover has been uploaded!");
-            console.log(cover.data.id)
             const updatedUser = await User.findByIdAndUpdate(req.body.userID,{profileCover:cover.data.id},{new:true})
-            console.log( await User.findById(req.body.userID))
         }catch (err){
             console.log(err)
         }

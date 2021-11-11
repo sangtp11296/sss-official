@@ -10,7 +10,6 @@ import 'ckeditor5-custom-build/build/translations/zh-cn';
 
 function Edit(props) {
     const data = props.location.state.state;
-    console.log(data)
     const [title,setTitle] = useState(data.title);
     const [section,setSection] = useState(data.section);
     const [categories,setCats] = useState(data.categories);
@@ -68,9 +67,11 @@ function Edit(props) {
         }
         if (cover){
             const data = new FormData();
-            const covername = Date.now()+ '_' + cover.name;
+            const covername = Date.now()+ '_' + toSlug(title);
+            data.append('type','postCover')
             data.append('name',covername);
             data.append('file',cover);
+            data.append('userID',user._id);
             editPost.coverPhoto = covername;
             try{
                 await axios.post('/upload', data)
@@ -170,7 +171,7 @@ function Edit(props) {
                         <div className={styles.imageSide}>
                             <h5>Cover Image</h5>
                             {cover || data.coverPhoto ? <div className={styles.uploadImage}>
-                                        <img className={styles.coverPhoto} alt='' id='changeCover' src={data.coverPhoto?`http://localhost:5000/images/covers/${data.coverPhoto}`:URL.createObjectURL(cover)}/>
+                                        <img className={styles.coverPhoto} alt='' id='changeCover' src={data.coverPhoto?`https://drive.google.com/uc?id=${data.coverPhoto}`:URL.createObjectURL(cover)}/>
                                         <i className={`${styles.xIcon} fas fa-times fa-2x`} onClick={(e)=>{
                                             e.preventDefault();
                                             setCover(null);
