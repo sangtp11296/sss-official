@@ -9,33 +9,16 @@ function GoogleDrive() {
   // created automatically when the authorization flow completes for the first
   // time.
   const TOKEN_PATH = 'token.json';
-  
-  // Load client secrets from a local file.
-  fs.readFile('client_secret.json', (err, content) => {
-    if (err) return console.log('Error loading client secret file:', err);
-    // Authorize a client with credentials, then call the Google Drive API.
-    return (authorize(JSON.parse(content)));
-  });
-  
-  /**
-   * Create an OAuth2 client with the given credentials, and then execute the
-   * given callback function.
-   * @param {Object} credentials The authorization client credentials.
-   * @param {function} callback The callback to call with the authorized client.
-   */
-  
-  function authorize(credentials) {
-    const {client_secret, client_id, redirect_uris} = credentials.web;
-    const oAuth2Client = new google.auth.OAuth2(
-        client_id, client_secret, redirect_uris[0]);
-  
-    // Check if we have previously stored a token.
-    fs.readFile(TOKEN_PATH, (err, token) => {
-      if (err) return getAccessToken(oAuth2Client);
-      oAuth2Client.setCredentials(JSON.parse(token));
-    });
-    return (oAuth2Client)
-  }
+
+  let oAuth2Client
+  var content = fs.readFileSync('client_secret.json', 'utf8')
+  const {client_secret, client_id, redirect_uris} = JSON.parse(content).web;
+  oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+  fs.readFile(TOKEN_PATH, (err, token) => {
+        if (err) return getAccessToken(oAuth2Client);
+        oAuth2Client.setCredentials(JSON.parse(token));
+      });
+  return oAuth2Client
   
   /**
    * Get and store new token after prompting for user authorization, and then
