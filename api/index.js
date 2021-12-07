@@ -27,6 +27,7 @@ const drive = google.drive({
     version: 'v3',
     auth: googleModule()
 })
+
 mongoose.connect(process.env.MONGO_URL)
 .then(console.log('Connected to MongoDB'))
 .catch((err) => console.log(err));
@@ -72,12 +73,12 @@ app.post('/api/upload', uploadImage.single('file'), async (req,res) => {
                 }
             })
             res.status(200).json("Post cover has been uploaded!");
-            const updatedPost = await Post.findByIdAndUpdate(req.body.userID,{coverPhoto:coverPost.data.id},{new:true})
+            const updatedPost = await Post.findByIdAndUpdate(req.body.postID,{coverPhoto:coverPost.data.id},{new:true})
         }catch (err){
             console.log(err)
         }
     }
-    if(req.body.type === 'avatar'){
+    if(req.body.type === 'profileAvatar'){
         try{
             const avatar = await drive.files.create({
                 requestBody:{
@@ -96,7 +97,7 @@ app.post('/api/upload', uploadImage.single('file'), async (req,res) => {
             console.log(err)
         }
     }
-    if(req.body.type === 'cover'){
+    if(req.body.type === 'profileCover'){
         try{
             const cover = await drive.files.create({
                 requestBody:{

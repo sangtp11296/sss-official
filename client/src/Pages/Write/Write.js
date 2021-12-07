@@ -68,27 +68,26 @@ export default function Write(props) {
             categories,
             authorname:user.authorname,
             photographer,
-            content
+            content,
+            covername: Date.now()+ '_' + toSlug(title)
         }
         if (cover){
+            try{
+                var res = await axios.post('/posts', newPost);
+            }catch(err){
+                setError(true)
+            }
             const data = new FormData();
-            const covername = Date.now()+ '_' + toSlug(title);
             data.append('type','postCover')
-            data.append('name',covername);
             data.append('file',cover);
-            data.append('userID',user._id);
-            newPost.coverPhoto = covername;
+            data.append('postID',res.data._id);
             try{
                 await axios.post('/upload', data)
-            }catch(err){
+                window.location.replace('/posts/' + res.data.slug);
+            } catch (err){
+                setError(true)
             }
-        }
-        try{
-            const res = await axios.post('/posts', newPost);
-            window.location.replace('/posts/' + res.data.slug);
-        }catch(err){
-            setError(true)
-        }
+        } else {window.alert("Please update your post cover!!!");}
     }
 
     const editorConfiguration = {

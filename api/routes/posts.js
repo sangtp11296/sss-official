@@ -6,7 +6,7 @@ const {google} = require('googleapis')
 
 const drive = google.drive({
     version: 'v3',
-    auth: googleModule
+    auth: googleModule()
 })
 //Create New Post
 router.post("/", async (req,res) => {
@@ -22,16 +22,58 @@ router.post("/", async (req,res) => {
             },
             fields: 'id'
         })
-        console.log(postFolder.data.id)
+        // console.log(postFolder.data.id)
         const getPhotos = await drive.files.list({
-            q: "'1JuzRfnC6FDhjezmcKCQeyMow1DD7oDzc' in parents",
+            q: "'1IPqKaIIsBA99UWnLVkyNp71xl02ZuG0y' in parents and trashed=false",
             fields: 'nextPageToken, files(id, name, parents, mimeType, modifiedTime)',
             spaces: 'drive',
             pageToken: null
         });
-        console.log(getPhotos)
-        // const photoIDs = getPhotos.get('id',[]);
-        // console.log(photoIDs)
+        const photoIDs = getPhotos.data.files
+        photoIDs.forEach(function(item,index){
+            drive.files.get({
+                fileId: item.id,
+                fields: 'parents'
+            }, function (err, file){
+                if (err){console.error(err);}
+                else {
+                    console.log(file)
+                    var previousParents = file.data.parents.join(',');
+                    drive.files.update({
+                        fileId: item.id,
+                        addParents: postFolder.data.id,
+                        removeParents: previousParents,
+                        fields: 'id, parents'
+                    }, function(err, file){
+                        if (err){
+                        } else {
+                        }
+                    })
+                }
+            })
+        })
+        // for (let i = 0; i <= photoIDs.length; i++) {
+        //     console.log(photoIDs[i].name)
+        //     drive.files.get({
+        //         fileId: photoIDs[i].id,
+        //         fields: 'parents'
+        //     }, function (err, file){
+        //         if (err){console.error(err);}
+        //         else {
+        //             var previousParents = file.parents.join(',');
+        //             drive.files.update({
+        //                 fileId: photoIDs[i].id,
+        //                 addParents: postFolder.data.id,
+        //                 removeParents: previousParents,
+        //                 fields: 'id, parents'
+        //             }, function(err, file){
+        //                 if (err){
+        //                 } else {
+        //                 }
+        //             })
+        //         }
+        //     })
+        // }
         res.status(200).json(savedPost);
     }catch(err){
         res.status(500).json(err);

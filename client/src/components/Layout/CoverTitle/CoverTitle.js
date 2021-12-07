@@ -5,7 +5,7 @@ import styles from './CoverTitle.module.css'
 const CoverTitle = (props) => {
     return (
         <>
-        {Object.keys(props.postCover).length === 0 ? null : <div className={styles.articleCover} style={{backgroundImage:`url(http://localhost:5000/images/covers/${props.postCover.coverPhoto})`}}>
+        {Object.keys(props.postCover).length === 0 ? null : <div className={styles.articleCover} style={{backgroundImage:`url(https://drive.google.com/uc?id=${props.postCover.coverPhoto})`}}>
             <div className={styles.coverImageGradient}></div>
             <h1 className={styles.articleCoverTitle}>
                 <div className={styles.titleWrapper}>

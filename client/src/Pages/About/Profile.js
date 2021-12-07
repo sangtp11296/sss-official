@@ -19,7 +19,6 @@ export default function Profile() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        e.preventDefault()
         setError(false);
         setPassErr(false);
 
@@ -53,14 +52,16 @@ export default function Profile() {
                 try{
                     await axios.post('/upload', dataAvatar)
                 }catch(err){
+                    console.log(err)
                 }
+                
             }
             try{
                 await axios.put(`/users/${user._id}`, updatedUser);
+                console.log(updatedUser)
                 dispatch({type:"LOGOUT"})
                 history.push('/login')
-                // window.location.reload();
-            }catch(err){}
+            }catch(err){console.log(err)}
         } else setPassErr(true);
     }
     return (
