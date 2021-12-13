@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './NormalPost.module.css'
 
 export default function NormalPost(props) {
-    const coversFolder = 'http://localhost:5000/images/covers/'
+    const coversFolder = 'https://drive.google.com/uc?id='
     return (
         <div className={styles.post}>
             {props.post.coverPhoto && (<Link to={`/posts/${props.post.slug}`}><img className={styles.postImg} src={coversFolder + props.post.coverPhoto} alt={props.post.title}/></Link>)}

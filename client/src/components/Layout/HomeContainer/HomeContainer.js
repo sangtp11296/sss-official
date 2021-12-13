@@ -17,6 +17,26 @@ export default function HomeContainer (props) {
                     <Post5B key={id} id={id++} post={params}/>
                 ))}
             </div>
+            <div className={styles.post6Block}>
+                {props.posts.map((params,id)=>(
+                    <Post6B key={id} id={id++} post={params}/>
+                ))}
+            </div>
+            <div className={styles.post5Block}>
+                {props.posts.map((params,id)=>(
+                    <Post5B key={id} id={id++} post={params}/>
+                ))}
+            </div>
+            <div className={styles.post6Block}>
+                {props.posts.map((params,id)=>(
+                    <Post6B key={id} id={id++} post={params}/>
+                ))}
+            </div>
+            <div className={styles.post5Block}>
+                {props.posts.map((params,id)=>(
+                    <Post5B key={id} id={id++} post={params}/>
+                ))}
+            </div>
             
         </div>
     )

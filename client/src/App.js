@@ -8,7 +8,7 @@ import LandingPage from './Pages/LandingPage/LandingPage';
 import Home from "./Pages/Home/Home";
 import Write from "./Pages/Write/Write";
 import SinglePost from "./components/SinglePost/SinglePost";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+// import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { useContext, useState } from "react";
 import { Context } from "./context/Context";
 import Edit from "./Pages/Write/Edit";
@@ -24,7 +24,7 @@ function App() {
   
   return (
     <Router>
-      <ScrollToTop/>
+      {/* <ScrollToTop/> */}
       <Switch>
         <Route path="/" exact={true}>
           <Header whiteHeader={whiteheader}/>

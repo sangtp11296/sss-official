@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from './SpecialPost.module.css'
 
 export default function SpecialPost(props) {
-    const coversFolder = 'http://localhost:5000/images/covers/'
+    const coversFolder = 'https://drive.google.com/uc?id='
     return (
         <>
             {props.post.coverPhoto && (

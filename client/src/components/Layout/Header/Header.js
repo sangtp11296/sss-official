@@ -17,6 +17,10 @@ export default function Header(props) {
             } else {
                 setWhite(false);
             }
+            //Ẩn khi on top
+            if (y === 0){
+                setHide(true);
+            }
             // Này là làm ẩn header khi kéo xuống khoảng giá trị 1200 và hiện lại khi kéo lên
             if (y > window.scrollY) {
                 setHide(false);

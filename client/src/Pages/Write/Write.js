@@ -1,11 +1,7 @@
 import React, { useContext, useState } from 'react'
-// import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { Context } from '../../context/Context';
-import './quill.css'
 import styles from './Write.module.css'
 import axios from 'axios'
-// import QuillEditor from '../../components/Editor/QuillEditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import 'ckeditor5-custom-build/build/translations/vi';
