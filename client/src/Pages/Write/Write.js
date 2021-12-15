@@ -9,6 +9,8 @@ import 'ckeditor5-custom-build/build/translations/de';
 import 'ckeditor5-custom-build/build/translations/zh-cn';
 
 
+
+
 export default function Write(props) {
     props.setWhiteHeaderCallback(true);  
     const [title,setTitle] = useState('');
